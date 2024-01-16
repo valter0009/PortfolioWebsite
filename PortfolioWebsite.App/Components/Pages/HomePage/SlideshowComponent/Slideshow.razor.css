@@ -10,7 +10,7 @@
 .carousel-img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Crop the image to cover the entire container */
+    object-fit: cover; 
 }
 
 
@@ -26,15 +26,21 @@
     transform: translate(-50%, -50%);
     z-index: 10;
    
+   
 }
 
 .logo {
-  
+
+    width: 150%; /* or any percentage */
+    height: auto;
+   
 }
+
+
 
 .arrow-down {
     position: absolute;
-    top: 95%;
+    top: 90%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 10;
@@ -52,7 +58,7 @@
 }
 
 .logo-container {
-    animation: fadeIn 7s; /* Adjust time as needed */
+    animation: fadeIn 5s; /* Adjust time as needed */
 }
 
 

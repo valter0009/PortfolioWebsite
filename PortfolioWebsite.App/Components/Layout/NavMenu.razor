@@ -1,13 +1,13 @@
-﻿
-<HxNavbar CssClass="bg-body-tertiary px-4 sticky-top ">
+﻿@rendermode InteractiveAuto
+<HxNavbar CssClass="bg-body-tertiary px-4 sticky-top gothic-font  ">
     
-    <HxNavbarBrand CssClass="">Navbar</HxNavbarBrand>
-    <HxNavbarToggler />
+    <HxNavbarBrand> <img src="/img/brand.svg" alt="brand" width="150" /> </HxNavbarBrand>
+    <HxNavbarToggler TooltipWrapperCssClass="@GetRotateClass()" @onclick="ToggleHamburger" />
     <HxNavbarCollapse CssClass="mt-2">
-        <HxNav CssClass=" ms-auto mb-2  ">
-            <HxNavLink CssClass="px-lg-4" Href="">Home</HxNavLink>
-            <HxNavLink CssClass="px-lg-4" Href="counter">Counter</HxNavLink>
-            <HxNavLink CssClass="px-lg-4" Href="weather">Weather</HxNavLink>
+        <HxNav CssClass=" ms-auto mb-2 fs-5 ">
+            <HxNavLink CssClass="mx-lg-4 hover-underline-animation" Href="">Home</HxNavLink>
+            <HxNavLink CssClass="mx-lg-4 hover-underline-animation" Href="counter">Counter</HxNavLink>
+            <HxNavLink CssClass="mx-lg-4 hover-underline-animation" Href="weather">Weather</HxNavLink>
             
         </HxNav>
        
@@ -15,7 +15,16 @@
     
     </HxNavbar>
 
-
 @code {
-    
+    private bool isHamburgerOpen = false;
+
+    private void ToggleHamburger()
+    {
+        isHamburgerOpen = !isHamburgerOpen;
+    }
+
+    private string GetRotateClass()
+    {
+        return isHamburgerOpen ? "rotate" : "rotate-back";
+    }
 }

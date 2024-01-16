@@ -1,17 +1,21 @@
 ﻿
 @inherits LayoutComponentBase
+@inject NavigationManager NavManager
 
+<div class="d-flex flex-column">
 
-<div class="d-flex flex-column ">
-    
+    @if (IsHomePage())
+    {
+        <div class="slideshow-container">
+            <PortfolioWebsite.App.Components.Pages.HomePage.SlideshowComponent.Slideshow />
+        </div>
+    }
     <NavMenu  />
     
-    
-    <main class="mx-5 pt-5 border-end border-star ">
+    <div class="rest" id="rest"></div>
+    <main class="mx-5 pt-5 border-end border-start border-1 border-light-subtle">
        
-
-        <article class="content mx-1  ">
-            
+        <article class="content px-3">           
             @Body
         </article>
         
@@ -24,6 +28,10 @@
     <a class="dismiss">🗙</a>
 </div>
 @code {
+    private bool IsHomePage()
+    {
+        return NavManager != null && NavManager.Uri == NavManager.BaseUri;
+    }
     protected override void OnInitialized()
     {
 

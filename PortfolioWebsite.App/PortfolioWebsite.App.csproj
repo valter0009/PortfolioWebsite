@@ -16,6 +16,7 @@
     <Folder Include="Components\Pages\About\" />
     <Folder Include="Components\Pages\Shop\" />
     <Folder Include="Components\Pages\Portfolio\" />
+    <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
 </Project>
