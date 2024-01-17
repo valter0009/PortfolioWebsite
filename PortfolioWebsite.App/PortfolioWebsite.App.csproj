@@ -7,16 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BlazorPro.BlazorSize" Version="6.2.2" />
     <PackageReference Include="DartSassBuilder" Version="1.0.0" />
     <PackageReference Include="Havit.Blazor.Components.Web.Bootstrap" Version="4.4.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Components\Pages\Contact\" />
-    <Folder Include="Components\Pages\About\" />
-    <Folder Include="Components\Pages\Shop\" />
-    <Folder Include="Components\Pages\Portfolio\" />
-    <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,30 @@
+﻿@page "/gallery"
+
+<PageTitle>Gallery</PageTitle>
+
+@inject IJSRuntime JsRuntime
+
+
+<div class="grid-gallery">
+    @for (var i = 1; i <= 96; i++)
+    {
+        var imageId = i;
+        <div class="grid-item">
+            <a href="/img/gallery/GalleryImage (@imageId).jpg" data-lightbox="gridImage">
+                <img src="/img/gallery/GalleryImage (@imageId).jpg" />
+            </a>
+        </div>
+    }
+</div>
+
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JsRuntime.InvokeVoidAsync("lightboxSettings");
+        }
+    }
+}
+
