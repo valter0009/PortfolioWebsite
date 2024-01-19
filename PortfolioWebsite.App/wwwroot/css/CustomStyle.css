@@ -102,7 +102,7 @@
 
 /* Rotation effect */
 .rotate, .rotate-back {
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.1s ease-in-out;
     transform: translateZ(0); /* Hardware acceleration */
 }
 

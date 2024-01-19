@@ -1,8 +1,8 @@
 ﻿@rendermode InteractiveAuto
 <HxNavbar CssClass="bg-body-tertiary px-4 sticky-top gothic-font  ">
     
-    <HxNavbarBrand> <img src="/img/brand.svg" alt="brand" width="150" /> </HxNavbarBrand>
-    <HxNavbarToggler TooltipWrapperCssClass="@GetRotateClass()" @onclick="ToggleHamburger" />
+    <HxNavbarBrand CssClass="mb-1"> <img src="/img/brand.svg" alt="brand" width="150"  /> </HxNavbarBrand>
+    <HxNavbarToggler Spinner="false" TooltipWrapperCssClass="@GetRotateClass()" @onclick="ToggleHamburger" />
     <HxNavbarCollapse CssClass="mt-2">
         <HxNav CssClass=" ms-auto mb-2 fs-5 ">
             <HxNavLink CssClass="mx-lg-4 hover-underline-animation" Href="">home</HxNavLink>

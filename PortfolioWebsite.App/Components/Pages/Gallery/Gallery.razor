@@ -11,7 +11,7 @@
         var imageId = i;
         <div class="grid-item">
             <a href="/img/gallery/GalleryImage (@imageId).jpg" data-lightbox="gridImage">
-                <img src="/img/gallery/GalleryImage (@imageId).jpg" />
+                <img src="/img/gallery/GalleryImage (@imageId).jpg" loading="lazy" />
             </a>
         </div>
     }
@@ -23,7 +23,9 @@
     {
         if (firstRender)
         {
+           
             await JsRuntime.InvokeVoidAsync("lightboxSettings");
+           
         }
     }
 }

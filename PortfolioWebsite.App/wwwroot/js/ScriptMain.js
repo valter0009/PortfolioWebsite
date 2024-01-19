@@ -1,7 +1,11 @@
 ﻿window.lightboxSettings = () => {
     lightbox.option({
-        'resizeDuration': 200,
+        'resizeDuration': 100,
         'wrapAround': true,
-        'disableScrolling': true
+        'disableScrolling': true,
+       
     });
 }
+
+
+
