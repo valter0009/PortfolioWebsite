@@ -113,3 +113,12 @@
 .rotate-back {
     transform: rotate(0deg) translateZ(0);
 }
+
+.text-indent {
+    text-indent: 1em;
+}
+
+.text-justify {
+    text-align: justify;
+    text-justify: inter-word;
+}
