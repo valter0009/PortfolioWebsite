@@ -1,18 +1,12 @@
 ﻿@page "/contact"
 
-<PageTitle>Counter</PageTitle>
+<HxInputText LabelType="LabelType.Floating" Label="Your name" @bind-Value="@userName" CssClass="my-3" />
+<HxInputTextArea LabelType="LabelType.Floating" Label="Message" @bind-Value="@userMessage" style="height:80px" CssClass="my-3" />
+<HxInputText LabelType="LabelType.Floating" Label="Email" @bind-Value="@userEmail" CssClass="my-3" />
 
-<h1>Counter</h1>
-
-<p role="status">Current count: @currentCount</p>
-
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-
-@code {
-    private int currentCount = 0;
-
-    private void IncrementCount()
-    {
-        currentCount++;
-    }
+@code
+{
+	private string userName;
+	private string userMessage;
+	private string userEmail;
 }

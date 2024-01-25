@@ -1,4 +1,80 @@
-﻿@keyframes flickerAnimation {
+﻿
+
+    .gothic-font {
+        font-family: 'Didact Gothic', sans-serif !important;
+    }
+
+.chivo-font {
+    font-family: 'Chivo', sans-serif;
+}
+
+.grotesk-font {
+    font-family: 'Hanken Grotesk', sans-serif;
+}
+
+    .fs-1 {
+        font-size: 1rem;
+    }
+
+.text-indent {
+    text-indent: 1em;
+}
+
+.text-justify {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.on-focus:focus {
+    outline: none;
+}
+
+.body {
+    overflow-x: hidden;
+}
+
+
+@media (min-width: 992px) {
+    .hover-underline-animation {
+        display: inline-block;
+        position: relative;
+        color: black !important;
+    }
+
+        .hover-underline-animation:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: black !important;
+            transform-origin: center;
+            transition: transform 0.25s ease-in-out;
+        }
+
+        .hover-underline-animation:hover:after {
+            transform: scaleX(1);
+            transform-origin: bottom;
+        }
+}
+
+/* Rotation effect */
+.rotate, .rotate-back {
+    transition: transform 0.1s ease-in-out;
+    transform: translateZ(0);
+}
+
+.rotate {
+    transform: rotate(90deg) translateZ(0);
+}
+
+.rotate-back {
+    transform: rotate(0deg) translateZ(0);
+}
+
+@keyframes flickerAnimation {
     0% {
         opacity: 1;
     }
@@ -59,66 +135,4 @@
     -moz-animation: flickerAnimation 2s infinite;
     -o-animation: flickerAnimation 2s infinite;
     animation: flickerAnimation 2s infinite;
-}
-
-
-
-    .gothic-font {
-        font-family: 'Didact Gothic', sans-serif !important;
-    }
-
-    .fs-1 {
-        font-size: 1rem;
-    }
-
-
-
-    @media (min-width: 992px) {
-        .hover-underline-animation {
-        display: inline-block;
-        position: relative;
-        color: black !important;
-    }
-
-        .hover-underline-animation:after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            transform: scaleX(0);
-            height: 1px;
-            bottom: 0;
-            
-            left: 0;
-            background-color: black !important;
-            transform-origin: center;
-            transition: transform 0.25s ease-in-out;
-        }
-
-        .hover-underline-animation:hover:after {
-            transform: scaleX(1);
-            transform-origin: bottom;
-        }
-}
-
-/* Rotation effect */
-.rotate, .rotate-back {
-    transition: transform 0.1s ease-in-out;
-    transform: translateZ(0); /* Hardware acceleration */
-}
-
-.rotate {
-    transform: rotate(90deg) translateZ(0);
-}
-
-.rotate-back {
-    transform: rotate(0deg) translateZ(0);
-}
-
-.text-indent {
-    text-indent: 1em;
-}
-
-.text-justify {
-    text-align: justify;
-    text-justify: inter-word;
 }

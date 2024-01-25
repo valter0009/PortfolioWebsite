@@ -1,8 +1,9 @@
 ﻿
 @inherits LayoutComponentBase
 @inject NavigationManager NavManager
+@inject IJSRuntime JSRuntime
 
-<div class="d-flex flex-column">
+<div class="d-flex flex-column grotesk-font ">
 
     @if (IsHomePage())
     {
@@ -10,17 +11,18 @@
             <Slideshow />
         </div>
     }
-    
+    <div class="rest" id="rest"></div>
     <NavMenu  />
     
     
     <main class="mx-5 pt-5 border-end border-start border-1 border-light-subtle">
-        <div class="rest" id="rest"></div>
-        <article class="content px-3 d-flex flex-column">
+        
+        <article class="content px-3 ">
             @Body
         </article>
         
     </main>
+    
 </div>
 
 <div id="blazor-error-ui">
@@ -34,11 +36,5 @@
     {
         return NavManager != null && NavManager.Uri == NavManager.BaseUri;
     }
-    protected override void OnInitialized()
-    {
-
-       
-    }
-
   
 }
