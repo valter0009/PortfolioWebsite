@@ -1,5 +1,4 @@
 ﻿
-
     .gothic-font {
         font-family: 'Didact Gothic', sans-serif !important;
     }
@@ -129,6 +128,8 @@
         opacity: 1;
     }
 }
+
+/* Flicker effect */
 
 .animate-flicker {
     -webkit-animation: flickerAnimation 2s infinite;
