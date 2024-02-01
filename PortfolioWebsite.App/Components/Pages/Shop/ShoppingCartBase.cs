@@ -3,12 +3,17 @@ using Microsoft.JSInterop;
 using PortfolioWebsite.App.Services.Contracts;
 using PortfolioWebsite.Models.DTOs;
 
+
 namespace PortfolioWebsite.App.Components.Pages.Shop
 {
     public class ShoppingCartBase : ComponentBase
     {
+
         [Inject]
         public IJSRuntime Js { get; set; }
+
+        [Inject]
+        NavigationManager NavManager { get; set; }
 
         [Inject]
         public IShoppingCartService ShoppingCartService { get; set; }
@@ -119,6 +124,24 @@ namespace PortfolioWebsite.App.Components.Pages.Shop
         {
             CalculateCartSummaryTotals();
             ShoppingCartService.RaiseEventOnShoppingCartChanged(TotalQuantity);
+        }
+
+        protected async Task Checkout_Click()
+        {
+            try
+            {
+                if (ShoppingCartItems.Count == 0)
+                {
+                    ErrorMessage = "Your cart is empty";
+                    return;
+                }
+                var url = await ShoppingCartService.Checkout(ShoppingCartItems);
+                NavManager.NavigateTo(url);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
         }
     }
 }

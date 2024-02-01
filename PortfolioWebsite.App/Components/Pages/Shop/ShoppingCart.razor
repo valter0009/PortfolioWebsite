@@ -46,9 +46,7 @@ else
             <h5>Cart Summary</h5>
             <div class="mt-2">
                 <div>Total - (@TotalQuantity items)&nbsp;<b>@TotalPrice</b></div>
-                <a href="Checkout" class="btn btn-success">
-                    <span class="oi oi-credit-card"></span>&nbsp; Proceed to Checkout 
-                </a>
+                    <button class="btn btn-primary" @onclick="async () => await Checkout_Click()">Checkout</button>
             </div>
         </div>
         </div>

@@ -93,12 +93,20 @@ namespace PortfolioWebsite.App.Services
             }
         }
 
+        public async Task<string> Checkout(List<CartItemDto> cartItems)
+        {
+            var jsonRequest = JsonConvert.SerializeObject(cartItems);
+            var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+
+            var response = await httpClient.PostAsync("api/payment/checkout", content);
+
+            var url = await response.Content.ReadAsStringAsync();
+            return url;
+        }
+
         public void RaiseEventOnShoppingCartChanged(int totalQty)
         {
-            if (OnShoppingCartChanged != null)
-            {
-                OnShoppingCartChanged.Invoke(totalQty);
-            }
+            OnShoppingCartChanged?.Invoke(totalQty);
         }
 
         public async Task<CartItemDto> UpdateQty(CartItemQtyUpdateDto cartItemQtyUpdateDto)
