@@ -32,6 +32,19 @@
     overflow-x: hidden;
 }
 
+.cart-container {
+    width: 78px; /* Adjust this value based on the maximum width of the badge */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (min-width: 992px) {
+    .cart-container {
+        margin-left: -1rem !important;
+    }
+}
+
 
 @media (min-width: 992px) {
     .hover-underline-animation {

@@ -2,10 +2,14 @@
 @inject IShoppingCartService shoppingCartService
 
 
-<a href="ShoppingCart" class="btn btn-info">
-    <i class="oi oi-cart"></i>&nbsp;Cart
-    <span class="badge bg-dark">@shoppingCartItemCount</span>
-</a>
+<div class="cart-container">
+    <a href="ShoppingCart" class="btn mt-1">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="badge bg-dark">@shoppingCartItemCount</span>
+    </a>
+</div>
+
+
 
 @code {
     private int shoppingCartItemCount = 0;

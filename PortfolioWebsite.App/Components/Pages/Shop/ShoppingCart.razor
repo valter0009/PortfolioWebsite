@@ -11,7 +11,7 @@ else if (ErrorMessage != null)
 }
 else
 {
-    <h3 class="mb-5">Shopping Cart</h3>
+    
     @if(ShoppingCartItems.Count() > 0)
     {
       <div class = "row mb-5">
@@ -27,11 +27,10 @@ else
                         <div class="mb-4">@item.ProductDescription</div>
                         <span>
                              Price: <b>@item.Price.ToString("C")</b>
-                            <input @oninput="()=>UpdateQty_Input(item.Id)"
-                            type="number" @bind="@item.Qty" />
-                            <button data-itemId="@item.Id" class="btn btn-info btn-sm update-qty"
+                                <input type="number" value="@item.Qty" @oninput="@(e => UpdateQtyCartItem(item.Id, e))" />
+                            <button data-itemId="@item.Id" class="d-none"
                                 @onclick="(() => UpdateQtyCartItem_Click(item.Id, item.Qty))"
-                            >Update Qty</button>
+                            ></button>
                         </span>
                         <div>
                             <button  @onclick ="(() => DeleteCartItem_Click(item.Id))"
@@ -53,7 +52,23 @@ else
     }
     else
     {
-        <h4>There are currently no items in your shopping cart</h4>
+        <h4 class="text-center">There are currently no items in your shopping cart</h4>
     }
 
 }
+
+@code {
+    protected async Task UpdateQtyCartItem(int id, ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out int newQty))
+        {
+            var item = ShoppingCartItems.FirstOrDefault(i => i.Id == id);
+            if (item != null && item.Qty != newQty)
+            {
+                item.Qty = newQty;
+                await UpdateQty_Input(item.Id);
+                await UpdateQtyCartItem_Click(item.Id, item.Qty);
+            }
+        }
+    }
+    }
