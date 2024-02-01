@@ -1,5 +1,5 @@
 ﻿using Azure.Communication.Email;
-using PortfolioWebsite.App.Services.Interfaces;
+using PortfolioWebsite.App.Services.Contracts;
 
 public class EmailService : IEmailService
 {

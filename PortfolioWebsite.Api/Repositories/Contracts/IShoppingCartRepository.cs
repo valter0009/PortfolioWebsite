@@ -3,16 +3,17 @@ using PortfolioWebsite.Models.DTOs;
 
 namespace PortfolioWebsite.Api.Repositories.Contracts
 {
-	public interface IShoppingCartRepository
-	{
-		Task<CartItem> AddItem(CartItemToAddDto cartItemToAdd);
+    public interface IShoppingCartRepository
+    {
+        Task<CartItem> AddItem(CartItemToAddDto cartItemToAdd);
 
-		Task<CartItem> UpdateQty(int id, CartItemQtyUpdateDto cartItemQtyUpdate);
+        Task<CartItem> UpdateQty(int id, CartItemQtyUpdateDto cartItemQtyUpdate);
 
-		Task<CartItem> DeleteItem(int id);
+        Task<CartItem> DeleteItem(int id);
+        Task DeleteItems(int userId);
+        Task<CartItem> GetItem(int id);
 
-		Task<CartItem> GetItem(int id);
+        Task<IEnumerable<CartItem>> GetItems(int userId);
 
-		Task<IEnumerable<CartItem>> GetItems(int userId);
-	}
+    }
 }

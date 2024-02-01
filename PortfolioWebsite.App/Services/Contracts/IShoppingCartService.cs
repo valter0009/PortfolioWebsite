@@ -6,7 +6,11 @@ namespace PortfolioWebsite.App.Services.Contracts
     {
         Task<List<CartItemDto>> GetItems(int userId);
         Task<CartItemDto> AddItem(CartItemToAddDto cartItemToAddDto);
+
         Task<CartItemDto> DeleteItem(int id);
+
+        Task<bool> DeleteItems(int userId);
+
         Task<CartItemDto> UpdateQty(CartItemQtyUpdateDto cartItemQtyUpdateDto);
 
         event Action<int> OnShoppingCartChanged;

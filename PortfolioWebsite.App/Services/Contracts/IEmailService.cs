@@ -1,4 +1,4 @@
-﻿namespace PortfolioWebsite.App.Services.Interfaces
+﻿namespace PortfolioWebsite.App.Services.Contracts
 {
     public interface IEmailService
     {

@@ -131,6 +131,22 @@ namespace PortfolioWebsite.App.Services
                 throw;
             }
         }
+
+        public async Task<bool> DeleteItems(int userId)
+        {
+            var response = await httpClient.DeleteAsync($"api/ShoppingCart/{userId}/DeleteItems");
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Handle the case if the API returns a status code of 204 (No Content)
+                return response.StatusCode == System.Net.HttpStatusCode.NoContent || response.StatusCode == System.Net.HttpStatusCode.OK;
+            }
+            else
+            {
+                var message = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Http status code: {response.StatusCode} Message: {message}");
+            }
+        }
     }
 }
 

@@ -99,5 +99,26 @@ namespace PortfolioWebsite.Api.Repositories
             return null;
 
         }
+
+
+        public async Task DeleteItems(int userId)
+        {
+
+            var userCart = await portfolioWebsiteDbContext.Carts.FirstOrDefaultAsync(c => c.UserId == userId);
+
+            if (userCart != null)
+            {
+
+                var cartItems = portfolioWebsiteDbContext.CartItems.Where(ci => ci.CartId == userCart.Id);
+
+
+                portfolioWebsiteDbContext.CartItems.RemoveRange(cartItems);
+
+
+                await portfolioWebsiteDbContext.SaveChangesAsync();
+            }
+        }
+
+
     }
 }

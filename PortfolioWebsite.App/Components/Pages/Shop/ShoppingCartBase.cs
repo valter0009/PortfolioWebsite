@@ -18,31 +18,61 @@ namespace PortfolioWebsite.App.Components.Pages.Shop
         [Inject]
         public IShoppingCartService ShoppingCartService { get; set; }
 
+        [Inject]
+        public IManageCartItemsLocalStorageService ManageCartItemsLocalStorageService { get; set; }
+
+
+
         public List<CartItemDto> ShoppingCartItems { get; set; }
 
         public string ErrorMessage { get; set; }
 
         protected string TotalPrice { get; set; }
         protected int TotalQuantity { get; set; }
+        private bool firstRenderCompleted = false;
+
         protected override async Task OnInitializedAsync()
+        {
+
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender && !firstRenderCompleted)
+            {
+                firstRenderCompleted = true;
+
+                try
+                {
+                    ShoppingCartItems = (List<CartItemDto>)await ManageCartItemsLocalStorageService.GetCollection();
+                    CartChanged();
+                }
+                catch (Exception ex)
+                {
+                    ErrorMessage = ex.Message;
+                }
+
+                StateHasChanged();
+            }
+        }
+
+        protected async Task DeleteCartItem_Click(int id)
         {
             try
             {
-                ShoppingCartItems = await ShoppingCartService.GetItems(HardCoded.UserId);
+                var cartItemDto = await ShoppingCartService.DeleteItem(id);
+                RemoveCartItem(id);
                 CartChanged();
             }
             catch (Exception ex)
             {
                 ErrorMessage = ex.Message;
             }
+
+
         }
 
-        protected async Task DeleteCartItem_Click(int id)
-        {
-            var cartItemDto = await ShoppingCartService.DeleteItem(id);
-            RemoveCartItem(id);
-            CartChanged();
-        }
+
 
         protected async Task UpdateQtyCartItem_Click(int id, int qty)
         {
@@ -54,7 +84,7 @@ namespace PortfolioWebsite.App.Components.Pages.Shop
 
                     var returnedUpdateItemDto = await ShoppingCartService.UpdateQty(updateItemDto);
 
-                    UpdateItemTotalPrice(returnedUpdateItemDto);
+                    await UpdateItemTotalPrice(returnedUpdateItemDto);
 
                     CartChanged();
 
@@ -87,13 +117,14 @@ namespace PortfolioWebsite.App.Components.Pages.Shop
         {
             await Js.InvokeVoidAsync("MakeUpdateQtyButtonVisible", id, visible);
         }
-        private void UpdateItemTotalPrice(CartItemDto cartItemDto)
+        private async Task UpdateItemTotalPrice(CartItemDto cartItemDto)
         {
             var item = GetCartItem(cartItemDto.Id);
             if (item != null)
             {
                 item.TotalPrice = cartItemDto.Price * cartItemDto.Qty;
             }
+            await ManageCartItemsLocalStorageService.SaveCollection(ShoppingCartItems);
         }
         private void CalculateCartSummaryTotals()
         {
@@ -112,13 +143,21 @@ namespace PortfolioWebsite.App.Components.Pages.Shop
         {
             return ShoppingCartItems.FirstOrDefault(x => x.Id == id);
         }
-        private void RemoveCartItem(int id)
+        private async Task RemoveCartItem(int id)
         {
             var cartItemDto = GetCartItem(id);
             ShoppingCartItems.Remove(cartItemDto);
 
-
+            await ManageCartItemsLocalStorageService.SaveCollection(ShoppingCartItems);
         }
+
+        private async Task RemoveCartItems(int userId)
+        {
+            await ShoppingCartService.DeleteItems(userId);
+            ShoppingCartItems.Clear();
+            await ManageCartItemsLocalStorageService.RemoveCollection();
+        }
+
 
         private void CartChanged()
         {
@@ -136,12 +175,17 @@ namespace PortfolioWebsite.App.Components.Pages.Shop
                     return;
                 }
                 var url = await ShoppingCartService.Checkout(ShoppingCartItems);
+                await RemoveCartItems(HardCoded.UserId);
+                CartChanged();
                 NavManager.NavigateTo(url);
+
+
             }
             catch (Exception ex)
             {
                 ErrorMessage = ex.Message;
             }
         }
+
     }
 }

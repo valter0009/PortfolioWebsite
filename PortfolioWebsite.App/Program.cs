@@ -1,11 +1,9 @@
 using Azure.Communication.Email;
+using Blazored.LocalStorage;
 using Havit.Blazor.Components.Web;
-using PortfolioWebsite.Api.Repositories;
-using PortfolioWebsite.Api.Repositories.Contracts;
 using PortfolioWebsite.App.Components;
 using PortfolioWebsite.App.Services;
 using PortfolioWebsite.App.Services.Contracts;
-using PortfolioWebsite.App.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +23,10 @@ builder.Services.AddSingleton<EmailClient>(sp =>
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
-builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddBlazoredLocalStorage();
+builder.Services.AddScoped<IManageProductsLocalStorageService, ManageProductsLocalStorageService>();
+builder.Services.AddScoped<IManageCartItemsLocalStorageService, ManageCartItemsLocalStorageService>();
+
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7240/") });
 var app = builder.Build();

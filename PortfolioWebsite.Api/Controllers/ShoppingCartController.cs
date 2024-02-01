@@ -7,18 +7,12 @@ namespace PortfolioWebsite.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ShoppingCartController : ControllerBase
+    public class ShoppingCartController(
+        IShoppingCartRepository shoppingCartRepository,
+        IProductRepository productRepository) : ControllerBase
     {
-        private readonly IShoppingCartRepository shoppingCartRepository;
-        private readonly IProductRepository productRepository;
-
-        public ShoppingCartController(
-            IShoppingCartRepository shoppingCartRepository,
-            IProductRepository productRepository)
-        {
-            this.shoppingCartRepository = shoppingCartRepository;
-            this.productRepository = productRepository;
-        }
+        private readonly IShoppingCartRepository shoppingCartRepository = shoppingCartRepository;
+        private readonly IProductRepository productRepository = productRepository;
 
         [HttpGet]
         [Route("{userId}/GetItems")]
@@ -33,13 +27,7 @@ namespace PortfolioWebsite.Api.Controllers
                     return NoContent();
                 }
 
-                var products = await productRepository.GetItems();
-
-                if (products == null)
-                {
-                    throw new Exception("No products exist in the system");
-                }
-
+                var products = await productRepository.GetItems() ?? throw new Exception("No products exist in the system");
                 var cartItemsDto = cartItems.ConvertToDto(products);
 
                 return Ok(cartItemsDto);
@@ -89,14 +77,8 @@ namespace PortfolioWebsite.Api.Controllers
                     return NoContent();
                 }
 
-                var product = await productRepository.GetItem(newCartItem.ProductId);
-
-                if (product == null)
-                {
-                    throw new Exception(
+                var product = await productRepository.GetItem(newCartItem.ProductId) ?? throw new Exception(
                         $"Something went wrong when attempting to retrieve product (productId:({cartItemToAddDto.ProductId})");
-                }
-
                 var newCartItemDto = newCartItem.ConvertToDto(product);
 
                 return CreatedAtAction(nameof(GetItem), new { id = newCartItemDto.Id }, newCartItemDto);
@@ -132,6 +114,23 @@ namespace PortfolioWebsite.Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+        [HttpDelete]
+        [Route("{userId}/DeleteItems")]
+        public async Task<ActionResult> DeleteItems(int userId)
+        {
+            try
+            {
+                await shoppingCartRepository.DeleteItems(userId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+
         [HttpPatch("{id:int}")]
         public async Task<ActionResult<CartItemDto>> UpdateQty(int id, CartItemQtyUpdateDto cartItemQtyUpdateDto)
         {
