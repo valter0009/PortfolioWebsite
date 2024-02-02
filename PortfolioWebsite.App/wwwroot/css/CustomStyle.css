@@ -32,121 +32,119 @@
     overflow-x: hidden;
 }
 
-.cart-container {
-    width: 78px; /* Adjust this value based on the maximum width of the badge */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.crt-container-width{
+    width:78px;
 }
+@media (max-width: 992px) {
 
-@media (min-width: 992px) {
-    .cart-container {
-        margin-left: -1rem !important;
+    .cart-container-fix {
+        --bs-btn-padding-x:0 !important; 
     }
 }
 
 
-@media (min-width: 992px) {
-    .hover-underline-animation {
-        display: inline-block;
-        position: relative;
-        color: black !important;
-    }
 
-        .hover-underline-animation:after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            transform: scaleX(0);
-            height: 1px;
-            bottom: 0;
-            left: 0;
-            background-color: black !important;
-            transform-origin: center;
-            transition: transform 0.25s ease-in-out;
+    @media (min-width: 992px) {
+        .hover-underline-animation {
+            display: inline-block;
+            position: relative;
+            color: black !important;
         }
 
-        .hover-underline-animation:hover:after {
-            transform: scaleX(1);
-            transform-origin: bottom;
+            .hover-underline-animation:after {
+                content: '';
+                position: absolute;
+                width: 100%;
+                transform: scaleX(0);
+                height: 1px;
+                bottom: 0;
+                left: 0;
+                background-color: black !important;
+                transform-origin: center;
+                transition: transform 0.25s ease-in-out;
+            }
+
+            .hover-underline-animation:hover:after {
+                transform: scaleX(1);
+               transform-origin: bottom;
+            }
+    }
+
+    /* Rotation effect */
+        .rotate, .rotate-back {
+        transition: transform 0.1s ease-in-out;
+        transform: translateZ(0);
+    }
+
+    .rotate {
+        transform: rotate(90deg) translateZ(0);
+    }
+
+    .rotate-back {
+        transform: rotate(0deg) translateZ(0);
+    }
+
+    @keyframes flickerAnimation {
+        0% {
+            opacity: 1;
         }
-}
 
-/* Rotation effect */
-.rotate, .rotate-back {
-    transition: transform 0.1s ease-in-out;
-    transform: translateZ(0);
-}
+        50% {
+            opacity: 0;
+        }
 
-.rotate {
-    transform: rotate(90deg) translateZ(0);
-}
-
-.rotate-back {
-    transform: rotate(0deg) translateZ(0);
-}
-
-@keyframes flickerAnimation {
-    0% {
-        opacity: 1;
+        100% {
+            opacity: 1;
+        }
     }
 
-    50% {
-        opacity: 0;
+    @-o-keyframes flickerAnimation {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
     }
 
-    100% {
-        opacity: 1;
-    }
-}
+    @-moz-keyframes flickerAnimation {
+        0% {
+            opacity: 1;
+        }
 
-@-o-keyframes flickerAnimation {
-    0% {
-        opacity: 1;
-    }
+        50% {
+            opacity: 0;
+        }
 
-    50% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
-@-moz-keyframes flickerAnimation {
-    0% {
-        opacity: 1;
+        100% {
+            opacity: 1;
+        }
     }
 
-    50% {
-        opacity: 0;
+    @-webkit-keyframes flickerAnimation {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
     }
 
-    100% {
-        opacity: 1;
+    /* Flicker effect */
+
+    .animate-flicker {
+        -webkit-animation: flickerAnimation 2s infinite;
+        -moz-animation: flickerAnimation 2s infinite;
+        -o-animation: flickerAnimation 2s infinite;
+        animation: flickerAnimation 2s infinite;
     }
-}
-
-@-webkit-keyframes flickerAnimation {
-    0% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
-/* Flicker effect */
-
-.animate-flicker {
-    -webkit-animation: flickerAnimation 2s infinite;
-    -moz-animation: flickerAnimation 2s infinite;
-    -o-animation: flickerAnimation 2s infinite;
-    animation: flickerAnimation 2s infinite;
-}
