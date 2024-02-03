@@ -69,6 +69,7 @@
 	private string message;
 	private string messageClass => !string.IsNullOrEmpty(message) && message.StartsWith("Error") ? "alert alert-danger" : "alert alert-success";
 
+
 	private async Task ClearMessage()
 	{
 		await Task.Delay(3000);

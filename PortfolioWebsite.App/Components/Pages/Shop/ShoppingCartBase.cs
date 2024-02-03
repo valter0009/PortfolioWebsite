@@ -15,8 +15,14 @@ namespace PortfolioWebsite.App.Components.Pages.Shop
         [Inject]
         NavigationManager NavManager { get; set; }
 
+
+
+
         [Inject]
         public IShoppingCartService ShoppingCartService { get; set; }
+
+        [Inject]
+        public IProductService ProductService { get; set; }
 
         [Inject]
         public IManageCartItemsLocalStorageService ManageCartItemsLocalStorageService { get; set; }
@@ -29,6 +35,7 @@ namespace PortfolioWebsite.App.Components.Pages.Shop
 
         protected string TotalPrice { get; set; }
         protected int TotalQuantity { get; set; }
+
         private bool firstRenderCompleted = false;
 
         protected override async Task OnInitializedAsync()
@@ -45,6 +52,11 @@ namespace PortfolioWebsite.App.Components.Pages.Shop
                 try
                 {
                     ShoppingCartItems = (List<CartItemDto>)await ManageCartItemsLocalStorageService.GetCollection();
+                    foreach (var item in ShoppingCartItems)
+                    {
+                        var productDetails = await ProductService.GetItem(item.ProductId);
+                        item.AvailableQuantity = productDetails.Qty;
+                    }
                     CartChanged();
                 }
                 catch (Exception ex)
@@ -175,11 +187,11 @@ namespace PortfolioWebsite.App.Components.Pages.Shop
                     return;
                 }
                 var url = await ShoppingCartService.Checkout(ShoppingCartItems);
+
+                NavManager.NavigateTo(url);
                 await RemoveCartItems(HardCoded.UserId);
                 CartChanged();
-                NavManager.NavigateTo(url);
-
-
+                StateHasChanged();
             }
             catch (Exception ex)
             {

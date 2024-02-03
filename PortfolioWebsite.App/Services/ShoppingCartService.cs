@@ -138,7 +138,7 @@ namespace PortfolioWebsite.App.Services
 
             if (response.IsSuccessStatusCode)
             {
-                // Handle the case if the API returns a status code of 204 (No Content)
+
                 return response.StatusCode == System.Net.HttpStatusCode.NoContent || response.StatusCode == System.Net.HttpStatusCode.OK;
             }
             else

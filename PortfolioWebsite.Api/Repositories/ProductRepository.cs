@@ -20,6 +20,7 @@ namespace PortfolioWebsite.Api.Repositories
             return product;
         }
 
+
         public async Task<IEnumerable<ProductCategory>> GetCategories()
         {
             var categories = await this.portfolioWebsiteDbContext.ProductCategories.ToListAsync();

@@ -2,17 +2,28 @@ using Microsoft.EntityFrameworkCore;
 using PortfolioWebsite.Api.Data;
 using PortfolioWebsite.Api.Repositories;
 using PortfolioWebsite.Api.Repositories.Contracts;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
+// Add services to the container.
+Log.Logger = new LoggerConfiguration()
+     .MinimumLevel
+    .Information()
+    .WriteTo
+    .Console()
+    .CreateLogger();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContextPool<PortfolioWebsiteDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalSqlServerString"))
+
+
+builder.Services
+    .AddDbContextPool<PortfolioWebsiteDbContext>(
+        options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalSqlServerString"))
 );
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();

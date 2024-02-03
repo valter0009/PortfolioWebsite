@@ -7,12 +7,17 @@ namespace PortfolioWebsite.Api.Repositories
 {
     public class PaymentRepository : IPaymentRepository
     {
+
+
         public PaymentRepository()
         {
+
             StripeConfiguration.ApiKey = "sk_test_51OemNmLRRNULBB8OshOA7jqTzqqGKxu5DdmW9inwiimryRT4Zxrw9BUAbI9Eb3U7gjqQA13tfvS0aJ4ejZSinLkr00SVfx8Cda";
         }
         public string CreateCheckoutSession(List<CartItemDto> cartItems)
         {
+
+            var domain = "https://localhost:7097";
             if (cartItems == null)
             {
                 return null;
@@ -36,6 +41,7 @@ namespace PortfolioWebsite.Api.Repositories
 
             var options = new SessionCreateOptions
             {
+
                 PaymentMethodTypes = ["card"],
                 LineItems = lineItems,
                 BillingAddressCollection = "required",
@@ -161,13 +167,18 @@ namespace PortfolioWebsite.Api.Repositories
         "PK"}
                 },
                 Mode = "payment",
-                SuccessUrl = "https://localhost:7097/order-success",
-                CancelUrl = "https://localhost:7097"
+                SuccessUrl = domain + "/order-success?session_id={CHECKOUT_SESSION_ID}",
+                CancelUrl = domain
             };
 
             var service = new SessionService();
             Session session = service.Create(options);
+
             return session.Url;
         }
+
+
     }
+
+
 }

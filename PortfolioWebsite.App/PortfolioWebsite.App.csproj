@@ -13,6 +13,7 @@
     <PackageReference Include="DartSassBuilder" Version="1.0.0" />
     <PackageReference Include="Havit.Blazor.Components.Web.Bootstrap" Version="4.4.1" />
     <PackageReference Include="Imagekit" Version="4.0.1" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
     <PackageReference Include="Stripe.net" Version="43.12.0" />
   </ItemGroup>
 
