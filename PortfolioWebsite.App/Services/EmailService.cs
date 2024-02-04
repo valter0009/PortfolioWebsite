@@ -1,25 +1,20 @@
-﻿using Azure.Communication.Email;
-using PortfolioWebsite.App.Services.Contracts;
+﻿using PortfolioWebsite.App.Services.Contracts;
 
-public class EmailService : IEmailService
+namespace PortfolioWebsite.App.Services
 {
-    private readonly EmailClient emailClient;
-    private readonly string fromAddress;
-    private readonly string toAddress;
-
-    public EmailService(EmailClient emailClient, IConfiguration configuration)
+    public class EmailService : IEmailService
     {
-        this.emailClient = emailClient;
-        var emailSettings = configuration.GetSection("EmailSettings");
-        this.fromAddress = emailSettings["FromAddress"];
-        this.toAddress = emailSettings["ToAddress"];
-    }
+        private readonly HttpClient httpClient;
 
-    public async Task SendEmailAsync(string subject, string message)
-    {
-        var fromEmailAddress = new EmailAddress(fromAddress);
-        var toEmailAddress = new EmailAddress(toAddress);
+        public EmailService(HttpClient httpClient)
+        {
+            this.httpClient = httpClient;
+        }
 
-        await emailClient.SendAsync(Azure.WaitUntil.Started, fromEmailAddress.Address, toEmailAddress.Address, subject, message);
+        public async Task SendEmailAsync(string subject, string message)
+        {
+            var emailRequest = new { Subject = subject, Message = message };
+            await httpClient.PostAsJsonAsync("api/email/send", emailRequest);
+        }
     }
 }

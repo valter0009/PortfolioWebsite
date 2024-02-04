@@ -1,4 +1,4 @@
-using Azure.Communication.Email;
+
 using Blazored.LocalStorage;
 using Havit.Blazor.Components.Web;
 using PortfolioWebsite.App.Components;
@@ -8,6 +8,8 @@ using Serilog;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
+CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
+CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
 
 Log.Logger = new LoggerConfiguration()
      .MinimumLevel
@@ -20,16 +22,6 @@ Log.Logger = new LoggerConfiguration()
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddHxServices();
-CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
-CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
-builder.Services.AddSingleton<EmailClient>(sp =>
-{
-    var configuration = sp.GetRequiredService<IConfiguration>();
-    var emailSettings = configuration.GetSection("EmailSettings");
-    var endpoint = emailSettings["ConnectionString"];
-    var connectionString = endpoint;
-    return new EmailClient(connectionString);
-});
 
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IProductService, ProductService>();

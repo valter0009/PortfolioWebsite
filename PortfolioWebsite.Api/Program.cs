@@ -1,3 +1,4 @@
+using Azure.Communication.Email;
 using Microsoft.EntityFrameworkCore;
 using PortfolioWebsite.Api.Data;
 using PortfolioWebsite.Api.Repositories;
@@ -14,10 +15,20 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo
     .Console()
     .CreateLogger();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<EmailClient>(sp =>
+{
+    var configuration = sp.GetRequiredService<IConfiguration>();
+    var emailSettings = configuration.GetSection("EmailSettings");
+    var endpoint = emailSettings["ConnectionString"];
+    var connectionString = endpoint;
+    return new EmailClient(connectionString);
+});
+
 
 
 
@@ -25,7 +36,7 @@ builder.Services
     .AddDbContextPool<PortfolioWebsiteDbContext>(
         options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalSqlServerString"))
 );
-
+builder.Services.AddScoped<IEmailRepository, EmailRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
