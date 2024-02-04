@@ -1,32 +1,52 @@
-﻿@rendermode InteractiveAuto
-<HxNavbar CssClass="bg-body-tertiary px-4 sticky-top gothic-font  ">
-    
-    <HxNavbarBrand CssClass="mb-1"> <img src="/img/brand.svg" alt="brand" width="150"  /> </HxNavbarBrand>
-    <HxNavbarToggler Spinner="false" TooltipWrapperCssClass="@GetRotateClass()" @onclick="ToggleHamburger" />
-    <HxNavbarCollapse CssClass="mt-2">
-        <HxNav CssClass=" ms-auto mb-2 fs-5 d-flex ">
-            <HxNavLink CssClass="mx-lg-4 hover-underline-animation" Href="">home</HxNavLink>
-            <HxNavLink CssClass="mx-lg-4 hover-underline-animation" Href="gallery">gallery</HxNavLink>            
-            <HxNavLink CssClass="mx-lg-4 hover-underline-animation" Href="shop">shop</HxNavLink>
-                <HxNavLink CssClass="mx-lg-4 hover-underline-animation" Href="contact">contact</HxNavLink>
-            
-            <CartMenu />
-        </HxNav>
+﻿@inject IJSRuntime JSRuntime
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary px-4 sticky-top gothic-font" id="navbar">
+    <div class="container-fluid">
+        
+        <a class="navbar-brand mb-1" href="">
+            <img src="/img/brand.svg" alt="brand" width="150" />
+        </a>
+
        
-    </HxNavbarCollapse>
-    
-    </HxNavbar>
+        <button class="navbar-toggler rotate-back" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        
+        <div class="collapse navbar-collapse mt-2" id="navbarCollapse">
+            <ul class="navbar-nav ms-auto mb-2 fs-5 d-flex">
+                <li class="nav-item">
+                    <a class="nav-link mx-lg-4 hover-underline-animation" aria-current="page" href="">home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-lg-4 hover-underline-animation" href="gallery">gallery</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-lg-4 hover-underline-animation" href="shop">shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-lg-4 hover-underline-animation" href="contact">contact</a>
+                </li>
+                <div class="cart-menu"> <CartMenu /></div>
+                
+                
+               
+                
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
 
 @code {
-    private bool isHamburgerOpen = false;
-
-    private void ToggleHamburger()
+   
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        isHamburgerOpen = !isHamburgerOpen;
-    }
-
-    private string GetRotateClass()
-    {
-        return isHamburgerOpen ? "rotate" : "rotate-back";
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("toggleHamburger");
+        }
     }
 }
