@@ -7,12 +7,13 @@ namespace PortfolioWebsite.Api.Repositories
 {
     public class PaymentRepository : IPaymentRepository
     {
+        private readonly string _stripeApiKey;
 
-
-        public PaymentRepository()
+        public PaymentRepository(IConfiguration configuration)
         {
 
-            StripeConfiguration.ApiKey = "sk_test_51OemNmLRRNULBB8OshOA7jqTzqqGKxu5DdmW9inwiimryRT4Zxrw9BUAbI9Eb3U7gjqQA13tfvS0aJ4ejZSinLkr00SVfx8Cda";
+            _stripeApiKey = configuration["StripeApiKey"];
+            StripeConfiguration.ApiKey = _stripeApiKey;
         }
         public string CreateCheckoutSession(List<CartItemDto> cartItems)
         {

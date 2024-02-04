@@ -11,16 +11,18 @@ namespace PortfolioWebsite.Api.Controllers
     public class PaymentController : ControllerBase
     {
         private readonly IPaymentRepository paymentRepository;
+        private readonly string _stripeEndpointSecret;
 
-
-        public PaymentController(IPaymentRepository paymentRepository
+        public PaymentController(IPaymentRepository paymentRepository, IConfiguration configuration
                              )
         {
             this.paymentRepository = paymentRepository;
 
+            _stripeEndpointSecret = configuration["StripeEndpoindScrt"];
+
         }
         // This is your Stripe CLI webhook secret for testing your endpoint locally.
-        const string endpointSecret = "whsec_e5d02861914032193d84368f065e8e31cba61af37c52ffb6a90eb8f746793f02";
+
 
         [HttpPost("checkout")]
 
@@ -43,7 +45,7 @@ namespace PortfolioWebsite.Api.Controllers
 
             {
                 var stripeEvent = EventUtility.ConstructEvent(json,
-                    Request.Headers["Stripe-Signature"], endpointSecret);
+                    Request.Headers["Stripe-Signature"], _stripeEndpointSecret);
 
 
                 if (stripeEvent.Type == Events.PaymentIntentSucceeded)
