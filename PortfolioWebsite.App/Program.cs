@@ -1,6 +1,7 @@
 
 using Blazored.LocalStorage;
 using Havit.Blazor.Components.Web;
+using Microsoft.AspNetCore.Components;
 using PortfolioWebsite.App.Components;
 using PortfolioWebsite.App.Services;
 using PortfolioWebsite.App.Services.Contracts;
@@ -32,7 +33,11 @@ builder.Services.AddScoped<IManageCartItemsLocalStorageService, ManageCartItemsL
 
 
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://solaricrealm.azurewebsites.net/") }); //https://localhost:7240
+builder.Services.AddScoped(sp =>
+{
+	NavigationManager navigation = sp.GetRequiredService<NavigationManager>();
+	return new HttpClient { BaseAddress = new Uri(navigation.BaseUri) };
+}); //https://localhost:7240
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
