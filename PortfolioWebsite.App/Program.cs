@@ -12,15 +12,15 @@ CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
 CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
 
 Log.Logger = new LoggerConfiguration()
-     .MinimumLevel
-    .Information()
-    .WriteTo
-    .Console()
-    .CreateLogger();
+	 .MinimumLevel
+	.Information()
+	.WriteTo
+	.Console()
+	.CreateLogger();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+	.AddInteractiveServerComponents();
 builder.Services.AddHxServices();
 
 builder.Services.AddScoped<IEmailService, EmailService>();
@@ -38,9 +38,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+	app.UseExceptionHandler("/Error", createScopeForErrors: true);
+	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+	app.UseHsts();
 }
 
 app.UseHttpsRedirection();
@@ -49,6 +49,6 @@ app.UseStaticFiles();
 app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+	.AddInteractiveServerRenderMode();
 
 app.Run();
