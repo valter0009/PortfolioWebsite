@@ -32,7 +32,7 @@ builder.Services.AddScoped<IManageCartItemsLocalStorageService, ManageCartItemsL
 
 
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7240/") });
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://solaricrealm.azurewebsites.net/") }); //https://localhost:7240
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
