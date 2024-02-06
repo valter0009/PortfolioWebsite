@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PortfolioWebsite.Api.Extensions;
 using PortfolioWebsite.Api.Repositories.Contracts;
 using PortfolioWebsite.Models.DTOs;
@@ -7,6 +8,7 @@ namespace PortfolioWebsite.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class ProductController(IProductRepository productRepository) : ControllerBase
     {
         private readonly IProductRepository productRepository = productRepository;
@@ -104,6 +106,7 @@ namespace PortfolioWebsite.Api.Controllers
         }
 
         [HttpDelete("{id:int}")]
+        [Authorize]
         public async Task<ActionResult<ProductDto>> DeleteItem(int id)
         {
             try
