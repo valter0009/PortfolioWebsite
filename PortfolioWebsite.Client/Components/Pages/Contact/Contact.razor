@@ -1,0 +1,107 @@
+﻿@page "/contact"
+<PageTitle>Contact</PageTitle>
+
+@inject IEmailService EmailService
+@using PortfolioWebsite.Client.Services
+@using PortfolioWebsite.Client.Models
+@using Microsoft.AspNetCore.Components.Forms
+@using PortfolioWebsite.Client.Services.Contracts
+
+
+
+
+<div class="container mb-5">
+	
+	<div class="row align-items-center justify-content-center">
+		@if (displayForm)
+		{
+			<div class="col-md-6 order-md-1 ">
+				<div class="text-center ">
+					<img class="img-fluid w-75 shadow-lg " src="https://ik.imagekit.io/valter/StefanPortfolio/Gallery/Images/tr:w-800/GalleryImage%20(38).jpg" alt="Stefan">
+			</div>
+		</div>
+
+
+
+			<div class="col-md-6 order-md-2 mb-3 mb-md-0 mt-5">
+			<div >
+				<h1 >Contact me</h1>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in tincidunt nisl, sed vestibulum ipsum. Pellentesque ornare iaculis ipsum, sed sodales nisi mattis ut. Morbi porttitor lorem ac leo sodales, non condimentum velit volutpat. Sed accumsan, arcu et pretium luctus, metus odio faucibus nisl, at mollis nibh nunc eget orci.</p>
+				</div>
+
+			<EditForm Model="@contactFormModel" OnValidSubmit="@HandleValidSubmit">
+				<DataAnnotationsValidator />
+				<ValidationSummary />
+
+				<div class="form-group">
+					<label class="form-label" for="name">Name</label>
+					<InputText id="name" class="form-control" @bind-Value="@contactFormModel.Name" />
+					<ValidationMessage For="@(() => contactFormModel.Name)" />
+				</div>
+
+				<div class="form-group">
+					<label class="form-label" for="email">Email</label>
+					<InputText id="email" class="form-control" @bind-Value="@contactFormModel.Email" />
+					<ValidationMessage For="@(() => contactFormModel.Email)" />
+				</div>
+
+				<div class="form-group">
+					<label class="form-label" for="subject">Subject</label>
+					<InputText id="subject" class="form-control" @bind-Value="@contactFormModel.Subject" />
+					<ValidationMessage For="@(() => contactFormModel.Subject)" />
+				</div>
+
+				<div class="form-group">
+					<label class="form-label" for="message">Message</label>
+					<InputTextArea id="message" class="form-control" @bind-Value="@contactFormModel.Message" />
+					<ValidationMessage For="@(() => contactFormModel.Message)" />
+				</div>
+
+				<button type="submit" class="alterbtn alterbtn-secondary">Send</button>
+			</EditForm>
+		</div>
+			}
+
+		<div class="@messageClass" hidden="@string.IsNullOrEmpty(message)">
+			@message
+		</div>
+	</div>
+</div>
+@code {
+	private ContactFormModel contactFormModel = new();
+	private bool displayForm = true; 
+
+	private string message;
+	private string messageClass => !string.IsNullOrEmpty(message) && message.StartsWith("Error") ? "alert alert-danger" : "alert alert-success";
+
+	private async Task HandleValidSubmit()
+	{
+		try
+		{
+			string formattedMessage = $"Message from: {contactFormModel.Name}, {contactFormModel.Email}\n\n: '{contactFormModel.Message}'";
+
+			await EmailService.SendEmailAsync(contactFormModel.Subject, formattedMessage);
+			message = "Your email has been sent successfully.";
+			displayForm = false; 
+			StateHasChanged();
+			await Task.Delay(3000);
+			ResetForm();
+		}
+		catch (Exception ex)
+		{
+			message = $"Error: {ex.Message}";
+			displayForm = false; 
+			StateHasChanged();
+			await Task.Delay(3000);
+			ResetForm();
+		}
+	}
+
+	private void ResetForm()
+	{
+		contactFormModel = new ContactFormModel();
+		message = null;
+		displayForm = true; 
+		StateHasChanged();
+	}
+}

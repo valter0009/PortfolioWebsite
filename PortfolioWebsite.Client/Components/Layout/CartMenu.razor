@@ -1,0 +1,39 @@
+﻿@using PortfolioWebsite.Client.Services.Contracts
+@using PortfolioWebsite.Models.DTOs
+@implements IDisposable
+@inject IShoppingCartService shoppingCartService
+
+
+<div class="d-flex flex-row crt-container-width">
+    <a href="ShoppingCart" class="btn mt-1 cart-container-fix">
+        <i class="bi bi-cart"></i>
+        <span class="badge bg-secondary">@shoppingCartItemCount</span>
+    </a>
+</div>
+
+
+
+@code {
+    private int shoppingCartItemCount = 0;
+    private List<CartItemDto> shoppingCartItems;
+
+    protected override void OnInitialized()
+    {
+        shoppingCartService.OnShoppingCartChanged += ShoppingCartChanged;
+      
+
+        
+    }
+
+    protected void ShoppingCartChanged(int totalQty)
+    {
+        shoppingCartItemCount = totalQty;
+        StateHasChanged();
+    }
+
+    void IDisposable.Dispose()
+    {
+        shoppingCartService.OnShoppingCartChanged -= ShoppingCartChanged;
+    }
+
+}

@@ -1,7 +1,6 @@
 
 using Blazored.LocalStorage;
 using Havit.Blazor.Components.Web;
-using Microsoft.AspNetCore.Components;
 using PortfolioWebsite.App.Components;
 using PortfolioWebsite.App.Services;
 using PortfolioWebsite.App.Services.Contracts;
@@ -33,15 +32,11 @@ builder.Services.AddScoped<IManageCartItemsLocalStorageService, ManageCartItemsL
 
 
 
-builder.Services.AddScoped(sp =>
-{
-	NavigationManager navigation = sp.GetRequiredService<NavigationManager>();
-	return new HttpClient { BaseAddress = new Uri(navigation.BaseUri) };
-});
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7240/") });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (!app.Environment.IsDevelopment())
 {
 	app.UseExceptionHandler("/Error", createScopeForErrors: true);
 	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.

@@ -83,7 +83,19 @@ builder.Services.AddScoped<IEmailRepository, EmailRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+
+
+
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy("AllowAll", builder =>
+		builder.AllowAnyOrigin()
+			   .AllowAnyMethod()
+			   .AllowAnyHeader());
+});
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -92,10 +104,24 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
+if (app.Environment.IsDevelopment())
+{
+	app.UseWebAssemblyDebugging();
+}
+
+
+app.UseStaticFiles();
+
+app.UseBlazorFrameworkFiles();
+
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapFallbackToFile("index.html");
 
 app.Run();
