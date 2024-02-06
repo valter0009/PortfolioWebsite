@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PortfolioWebsite.Client\PortfolioWebsite.Client.csproj" />
     <ProjectReference Include="..\PortfolioWebsite.Models\PortfolioWebsite.Models.csproj" />
   </ItemGroup>
 
