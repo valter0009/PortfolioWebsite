@@ -5,15 +5,14 @@ using PortfolioWebsite.Client;
 using PortfolioWebsite.Client.Services;
 using PortfolioWebsite.Client.Services.Contracts;
 using Serilog;
-
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
 Log.Logger = new LoggerConfiguration()
-	 .MinimumLevel
-	.Information()
-	.WriteTo
-	.Console()
-	.CreateLogger();
+     .MinimumLevel
+    .Information()
+    .WriteTo
+    .Console()
+    .CreateLogger();
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
@@ -30,9 +29,9 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https:/
 
 builder.Services.AddOidcAuthentication(options =>
 {
-	// Configure your authentication provider options here.
-	// For more information, see https://aka.ms/blazor-standalone-auth
-	builder.Configuration.Bind("Local", options.ProviderOptions);
+
+    builder.Configuration.Bind("Auth0", options.ProviderOptions);
+    options.ProviderOptions.ResponseType = "code";
 });
 
 await builder.Build().RunAsync();

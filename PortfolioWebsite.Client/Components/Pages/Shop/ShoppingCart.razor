@@ -1,5 +1,5 @@
 ﻿@page "/ShoppingCart"
-
+@attribute [Authorize]
 @inherits ShoppingCartBase
 
 @if (ShoppingCartItems == null && ErrorMessage == null)

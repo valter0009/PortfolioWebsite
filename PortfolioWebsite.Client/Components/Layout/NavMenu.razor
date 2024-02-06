@@ -16,20 +16,23 @@
         <div class="collapse navbar-collapse mt-2" id="navbarCollapse">
             <ul class="navbar-nav ms-auto mb-2 fs-5 d-flex">
                 <li class="nav-item">
-                    <a class="nav-link mx-lg-4 hover-underline-animation" aria-current="page" href="">home</a>
+                    <a class="nav-link mx-lg-3 hover-underline-animation" aria-current="page" href="">home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-lg-4 hover-underline-animation" href="gallery">gallery</a>
+                    <a class="nav-link mx-lg-3 hover-underline-animation" href="gallery">gallery</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-lg-4 hover-underline-animation" href="shop">shop</a>
+                    <a class="nav-link mx-lg-3 hover-underline-animation" href="shop">shop</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-lg-4 hover-underline-animation" href="contact">contact</a>
+                    <a class="nav-link mx-lg-3 hover-underline-animation" href="contact">contact</a>
                 </li>
-                <div class="cart-menu"> <CartMenu /></div>
                 
-                
+                <AuthorizeView>
+                    <CartMenu />
+                </AuthorizeView>
+
+                 <AuthenticationStatus />
                
                 
             </ul>

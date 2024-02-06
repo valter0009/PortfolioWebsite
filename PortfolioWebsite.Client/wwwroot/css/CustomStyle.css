@@ -32,14 +32,14 @@
     overflow-x: hidden;
 }
 
-.crt-container-width{
+.nav-item-container-width{
     width:82px;
   
 }
 @media (max-width: 992px) {
 
-    .cart-container-fix {
-        --bs-btn-padding-x:0 !important; 
+    .nav-item-container-fix {
+        --bs-btn-padding-x: 0 !important;
     }
 }
 
@@ -47,7 +47,11 @@
     padding: 0 0 0 0;
 }
 
+.login-text-size {
+   
+    font-size: 0.8em;
 
+}
 
 @media (min-width: 992px) {
     .hover-underline-animation {
