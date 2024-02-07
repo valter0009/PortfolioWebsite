@@ -185,10 +185,10 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
 					return;
 				}
 				var url = await ShoppingCartService.Checkout(ShoppingCartItems);
-
-				NavManager.NavigateTo(url);
 				await RemoveCartItems(HardCoded.UserId);
 				CartChanged();
+				NavManager.NavigateTo(url);
+
 				StateHasChanged();
 			}
 			catch (Exception ex)

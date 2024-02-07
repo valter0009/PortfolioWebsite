@@ -1,4 +1,4 @@
-﻿function toggleHamburger() {
+﻿window.toggleHamburger = function () {
     var toggler = document.querySelector('.navbar-toggler');
     var navbarCollapse = document.getElementById('navbarCollapse');
     let lastScrollTop = 0;
