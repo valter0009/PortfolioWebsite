@@ -4,95 +4,101 @@ using System.Net.Http.Json;
 
 namespace PortfolioWebsite.Client.Services
 {
-	public class ProductService : IProductService
-	{
-		private readonly HttpClient httpClient;
+    public class ProductService : IProductService
+    {
+        private readonly IHttpClientFactory httpClient;
 
-		public ProductService(HttpClient httpClient)
-		{
-			this.httpClient = httpClient;
-		}
+        public ProductService(IHttpClientFactory httpClient)
+        {
+            this.httpClient = httpClient;
+        }
+        private HttpClient GetClient(bool requiresAuth = false)
+        {
+            return httpClient.CreateClient(requiresAuth ? "AuthorizedClient" : "AnonymousClient");
+        }
+        public async Task<ProductDto> GetItem(int id)
+        {
+            var httpClient = GetClient();
+            try
+            {
+                var response = await httpClient.GetAsync($"api/Product/{id}");
+                if (response.IsSuccessStatusCode)
+                {
+                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                    {
+                        return default(ProductDto);
+                    }
 
-		public async Task<ProductDto> GetItem(int id)
-		{
-			try
-			{
-				var response = await httpClient.GetAsync($"api/Product/{id}");
-				if (response.IsSuccessStatusCode)
-				{
-					if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
-					{
-						return default(ProductDto);
-					}
+                    return await response.Content.ReadFromJsonAsync<ProductDto>();
+                }
+                else
+                {
+                    var message = await response.Content.ReadAsStringAsync();
+                    throw new Exception(message);
+                }
+            }
+            catch (Exception)
+            {
 
-					return await response.Content.ReadFromJsonAsync<ProductDto>();
-				}
-				else
-				{
-					var message = await response.Content.ReadAsStringAsync();
-					throw new Exception(message);
-				}
-			}
-			catch (Exception)
-			{
+                throw;
+            }
+        }
 
-				throw;
-			}
-		}
+        public async Task<IEnumerable<ProductDto>> GetItems()
+        {
+            var httpClient = GetClient();
+            try
+            {
+                var response = await httpClient.GetAsync("api/Product");
+                if (response.IsSuccessStatusCode)
+                {
+                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                    {
+                        return Enumerable.Empty<ProductDto>();
+                    }
 
-		public async Task<IEnumerable<ProductDto>> GetItems()
-		{
-			try
-			{
-				var response = await httpClient.GetAsync("api/Product");
-				if (response.IsSuccessStatusCode)
-				{
-					if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
-					{
-						return Enumerable.Empty<ProductDto>();
-					}
+                    return await response.Content.ReadFromJsonAsync<IEnumerable<ProductDto>>();
+                }
+                else
+                {
+                    var message = await response.Content.ReadAsStringAsync();
+                    throw new Exception(message);
+                }
 
-					return await response.Content.ReadFromJsonAsync<IEnumerable<ProductDto>>();
-				}
-				else
-				{
-					var message = await response.Content.ReadAsStringAsync();
-					throw new Exception(message);
-				}
+            }
+            catch (Exception)
+            {
 
-			}
-			catch (Exception)
-			{
+                throw;
+            }
+        }
 
-				throw;
-			}
-		}
+        public async Task<ProductDto> DeleteItem(int id)
+        {
+            var httpClient = GetClient(true);
+            try
+            {
+                var response = await httpClient.DeleteAsync($"api/Product/{id}");
+                if (response.IsSuccessStatusCode)
+                {
+                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                    {
+                        return default(ProductDto);
+                    }
 
-		public async Task<ProductDto> DeleteItem(int id)
-		{
-			try
-			{
-				var response = await httpClient.DeleteAsync($"api/Product/{id}");
-				if (response.IsSuccessStatusCode)
-				{
-					if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
-					{
-						return default(ProductDto);
-					}
+                    return await response.Content.ReadFromJsonAsync<ProductDto>();
+                }
+                else
+                {
+                    var message = await response.Content.ReadAsStringAsync();
+                    throw new Exception(message);
+                }
+            }
+            catch (Exception)
+            {
 
-					return await response.Content.ReadFromJsonAsync<ProductDto>();
-				}
-				else
-				{
-					var message = await response.Content.ReadAsStringAsync();
-					throw new Exception(message);
-				}
-			}
-			catch (Exception)
-			{
-
-				throw;
-			}
-		}
-	}
+                throw;
+            }
+        }
+    }
 }

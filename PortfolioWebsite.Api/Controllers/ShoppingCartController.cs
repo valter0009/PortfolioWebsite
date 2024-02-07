@@ -18,6 +18,7 @@ namespace PortfolioWebsite.Api.Controllers
 
         [HttpGet]
         [Route("{userId}/GetItems")]
+
         public async Task<ActionResult<IEnumerable<CartItemDto>>> GetItems(int userId)
         {
             try
@@ -41,6 +42,7 @@ namespace PortfolioWebsite.Api.Controllers
         }
 
         [HttpGet("{id:int}")]
+
         public async Task<ActionResult<CartItemDto>> GetItem(int id)
         {
             try

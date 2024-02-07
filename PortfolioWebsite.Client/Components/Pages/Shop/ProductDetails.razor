@@ -43,13 +43,14 @@ else
 				</Authorized>
 				 <NotAuthorized>
 					<div>
-						<button class="alterbtn alterbtn-secondary">
-							<a class=" text-dark text-decoration-none" href="authentication/login"><b>Login</b> to add to cart</a>
+						<button class="alterbtn alterbtn-secondary text-dark text-decoration-none" @onclick="RedirectToLoginAndReturn">
+							<b>Login</b> to add to cart
 						</button>
-
 					</div>
 				 </NotAuthorized> 
 			</AuthorizeView>
 		</div>
 	</div>
 }
+
+

@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using Microsoft.Extensions.Options;
 using PortfolioWebsite.Client.Services.Contracts;
 using PortfolioWebsite.Models.DTOs;
 
@@ -22,6 +25,10 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
 		[Inject]
 		public IManageProductsLocalStorageService ManageProductsLocalStorageService { get; set; }
 
+		[Inject]
+		public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+
+		[Inject] IOptionsSnapshot<RemoteAuthenticationOptions<ApiAuthorizationProviderOptions>> OptionsSnapshot { get; set; }
 		public ProductDto Product { get; set; }
 
 		public string ErrorMessage { get; set; }
@@ -38,18 +45,22 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
 
 		protected override async Task OnAfterRenderAsync(bool firstRender)
 		{
-			if (firstRender && !firstRenderCompleted)
+			if (firstRender)
 			{
-				firstRenderCompleted = true;
-
 				try
 				{
-					ShoppingCartItems = (List<CartItemDto>)await ManageCartItemsLocalStorageService.GetCollection();
-					Product = await GetProductById(Id);
+					// Always attempt to fetch product details regardless of authentication status
+					Product = await ProductService.GetItem(Id);
+
+					var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+					if (authState.User.Identity.IsAuthenticated)
+					{
+						ShoppingCartItems = (List<CartItemDto>)await ManageCartItemsLocalStorageService.GetCollection();
+					}
 				}
 				catch (Exception ex)
 				{
-					ErrorMessage = ex.Message;
+					ErrorMessage = $"Error loading product details: {ex.Message}";
 				}
 
 				StateHasChanged();
@@ -85,6 +96,12 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
 				return productsDtos.SingleOrDefault(x => x.Id == id);
 			}
 			return null;
+		}
+
+
+		protected void RedirectToLoginAndReturn()
+		{
+			NavigationManager.NavigateToLogin(OptionsSnapshot.Get(Options.DefaultName).AuthenticationPaths.LogInPath);
 		}
 	}
 }
