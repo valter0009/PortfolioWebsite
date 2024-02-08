@@ -41,10 +41,8 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
             {
                 firstRenderCompleted = true;
 
-                // Fetch products regardless of authorization status
                 Products = await ManageProductsLocalStorageService.GetCollection();
 
-                // Check if the user is authenticated before accessing shopping cart
                 var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
                 if (authState.User.Identity.IsAuthenticated)
                 {

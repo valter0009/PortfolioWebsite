@@ -2,20 +2,22 @@
 
 namespace PortfolioWebsite.Client.Services.Contracts
 {
-	public interface IShoppingCartService
-	{
-		Task<List<CartItemDto>> GetItems();
-		Task<CartItemDto> AddItem(CartItemToAddDto cartItemToAddDto);
+    public interface IShoppingCartService
+    {
+        Task<List<CartItemDto>> GetItems();
+        Task<CartItemDto> AddItem(CartItemToAddDto cartItemToAddDto);
 
-		Task<CartItemDto> DeleteItem(int id);
+        Task<CartItemDto> DeleteItem(int id);
 
-		Task<bool> DeleteItems();
+        Task<bool> DeleteItems();
 
-		Task<CartItemDto> UpdateQty(CartItemQtyUpdateDto cartItemQtyUpdateDto);
+        Task<CartItemDto> UpdateQty(CartItemQtyUpdateDto cartItemQtyUpdateDto);
 
-		event Action<int> OnShoppingCartChanged;
-		void RaiseEventOnShoppingCartChanged(int totalQty);
+        event Action<int> OnShoppingCartChanged;
+        void RaiseEventOnShoppingCartChanged(int totalQty);
 
-		public Task<string> Checkout(List<CartItemDto> cartItems);
-	}
+        Task<int> GetItemsCount();
+
+        public Task<string> Checkout(List<CartItemDto> cartItems);
+    }
 }

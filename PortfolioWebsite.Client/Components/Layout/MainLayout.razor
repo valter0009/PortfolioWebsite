@@ -1,8 +1,7 @@
-﻿
-
-@inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase
 @inject NavigationManager NavManager
 @inject IJSRuntime JSRuntime
+
 
 
 <div class="d-flex flex-column min-vh-100 grotesk-font ">
@@ -36,6 +35,8 @@
 </div>
 
 @code {
+   
+
     private bool IsHomePage()
     {
         return NavManager != null && NavManager.Uri == NavManager.BaseUri;

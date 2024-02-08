@@ -17,8 +17,9 @@
     private int shoppingCartItemCount = 0;
     private List<CartItemDto> shoppingCartItems;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
+        shoppingCartItemCount = await shoppingCartService.GetItemsCount();
         shoppingCartService.OnShoppingCartChanged += ShoppingCartChanged;
         
 
@@ -35,5 +36,7 @@
     {
         shoppingCartService.OnShoppingCartChanged -= ShoppingCartChanged;
     }
+
+   
 
 }

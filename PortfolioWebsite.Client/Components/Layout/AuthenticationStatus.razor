@@ -1,9 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using PortfolioWebsite.Client.Services.Contracts
 
 @inject NavigationManager Navigation
 @inject SignOutSessionStateManager SignOutManager
-
+@inject IManageCartItemsLocalStorageService ManageCartItemsLocalStorageService
 <AuthorizeView>
     <Authorized>
 
@@ -31,6 +32,7 @@
 @code {
     private async Task BeginSignOut(MouseEventArgs args)
     {
+        ManageCartItemsLocalStorageService.RemoveCollection();  
         await SignOutManager.SetSignOutState();
         Navigation.NavigateTo("authentication/logout");
     }
