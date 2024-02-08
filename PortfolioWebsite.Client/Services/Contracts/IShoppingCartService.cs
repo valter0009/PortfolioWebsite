@@ -4,12 +4,12 @@ namespace PortfolioWebsite.Client.Services.Contracts
 {
 	public interface IShoppingCartService
 	{
-		Task<List<CartItemDto>> GetItems(int userId);
+		Task<List<CartItemDto>> GetItems();
 		Task<CartItemDto> AddItem(CartItemToAddDto cartItemToAddDto);
 
 		Task<CartItemDto> DeleteItem(int id);
 
-		Task<bool> DeleteItems(int userId);
+		Task<bool> DeleteItems();
 
 		Task<CartItemDto> UpdateQty(CartItemQtyUpdateDto cartItemQtyUpdateDto);
 

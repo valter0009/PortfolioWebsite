@@ -30,7 +30,7 @@ namespace PortfolioWebsite.Client.Services
 
 		private async Task<List<CartItemDto>> AddCollection()
 		{
-			var shoppingCartCollection = await this.shoppingCartService.GetItems(HardCoded.UserId);
+			var shoppingCartCollection = await this.shoppingCartService.GetItems();
 
 			if (shoppingCartCollection != null)
 			{

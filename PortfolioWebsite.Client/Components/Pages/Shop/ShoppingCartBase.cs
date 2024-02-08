@@ -161,9 +161,9 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
 			await ManageCartItemsLocalStorageService.SaveCollection(ShoppingCartItems);
 		}
 
-		private async Task RemoveCartItems(int userId)
+		private async Task RemoveCartItems()
 		{
-			await ShoppingCartService.DeleteItems(userId);
+			await ShoppingCartService.DeleteItems();
 			ShoppingCartItems.Clear();
 			await ManageCartItemsLocalStorageService.RemoveCollection();
 		}
@@ -185,8 +185,7 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
 					return;
 				}
 				var url = await ShoppingCartService.Checkout(ShoppingCartItems);
-				await RemoveCartItems(HardCoded.UserId);
-				CartChanged();
+
 				NavManager.NavigateTo(url);
 
 				StateHasChanged();
