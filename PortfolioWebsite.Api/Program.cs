@@ -16,11 +16,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 Log.Logger = new LoggerConfiguration()
-	 .MinimumLevel
-	.Information()
-	.WriteTo
-	.Console()
-	.CreateLogger();
+     .MinimumLevel
+    .Information()
+    .WriteTo
+    .Console()
+    .CreateLogger();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -31,54 +31,58 @@ builder.Services.AddHttpContextAccessor();
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-	.AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, c =>
-	{
-		c.Authority = $"https://{builder.Configuration["Auth0:Domain"]}";
-		c.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-		{
-			ValidAudience = builder.Configuration["Auth0:Audience"],
-			ValidIssuer = $"https://{builder.Configuration["Auth0:Domain"]}"
-		};
-	});
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, c =>
+    {
+        c.Authority = $"https://{builder.Configuration["Auth0:Domain"]}";
+        c.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        {
+            ValidAudience = builder.Configuration["Auth0:Audience"],
+            ValidIssuer = $"https://{builder.Configuration["Auth0:Domain"]}",
+
+
+        };
+
+
+    });
 
 
 if (builder.Environment.IsDevelopment() || builder.Environment.IsProduction())
 {
-	var keyVaultURL = builder.Configuration.GetSection("KeyVault:KeyVaultURL");
+    var keyVaultURL = builder.Configuration.GetSection("KeyVault:KeyVaultURL");
 
-	var keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(new AzureServiceTokenProvider().KeyVaultTokenCallback));
+    var keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(new AzureServiceTokenProvider().KeyVaultTokenCallback));
 
-	builder.Configuration.AddAzureKeyVault(keyVaultURL.Value!.ToString(), new DefaultKeyVaultSecretManager());
+    builder.Configuration.AddAzureKeyVault(keyVaultURL.Value!.ToString(), new DefaultKeyVaultSecretManager());
 
-	var client = new SecretClient(new Uri(keyVaultURL.Value!.ToString()), new DefaultAzureCredential());
+    var client = new SecretClient(new Uri(keyVaultURL.Value!.ToString()), new DefaultAzureCredential());
 
-	/* builder.Services.AddDbContext<PortfolioWebsiteDbContext>(options =>
+    /* builder.Services.AddDbContext<PortfolioWebsiteDbContext>(options =>
 	 {
 
 		 options.UseSqlServer(client.GetSecret("AzureSqlConnectionString").Value.Value.ToString());
 	 });*/
 
-	builder.Services.AddDbContext<PortfolioWebsiteDbContext>(options =>
-	{
-		options.UseSqlServer(builder.Configuration.GetConnectionString("LocalDbConnectionString"));
-	});
+    builder.Services.AddDbContext<PortfolioWebsiteDbContext>(options =>
+    {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("LocalDbConnectionString"));
+    });
 
-	var stripeApiKey = client.GetSecret("StripeApiKey").Value.Value;
-	var stripeEndpointSecret = client.GetSecret("StripeEndpoindScrt").Value.Value;
-	builder.Configuration["StripeApiKey"] = stripeApiKey;
-	builder.Configuration["StripeEndpoindScrt"] = stripeEndpointSecret;
+    var stripeApiKey = client.GetSecret("StripeApiKey").Value.Value;
+    var stripeEndpointSecret = client.GetSecret("StripeEndpoindScrt").Value.Value;
+    builder.Configuration["StripeApiKey"] = stripeApiKey;
+    builder.Configuration["StripeEndpoindScrt"] = stripeEndpointSecret;
 
 
 
-	builder.Services.AddSingleton<EmailClient>(sp =>
-	{
+    builder.Services.AddSingleton<EmailClient>(sp =>
+    {
 
-		var configuration = sp.GetRequiredService<IConfiguration>();
-		var emailSettings = configuration.GetSection("EmailSettings");
-		var connectionString = client.GetSecret("EmailConnectionString").Value.Value.ToString();
+        var configuration = sp.GetRequiredService<IConfiguration>();
+        var emailSettings = configuration.GetSection("EmailSettings");
+        var connectionString = client.GetSecret("EmailConnectionString").Value.Value.ToString();
 
-		return new EmailClient(connectionString);
-	});
+        return new EmailClient(connectionString);
+    });
 }
 /*if (builder.Environment.IsDevelopment())
 {
@@ -102,15 +106,15 @@ builder.Services.AddScoped<IEmailRepository, EmailRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
-
+builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
 
 builder.Services.AddCors(options =>
 {
-	options.AddPolicy("AllowAll", builder =>
-		builder.AllowAnyOrigin()
-			   .AllowAnyMethod()
-			   .AllowAnyHeader());
+    options.AddPolicy("AllowAll", builder =>
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader());
 });
 
 var app = builder.Build();
@@ -119,9 +123,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-	app.UseSwagger();
-	app.UseSwaggerUI();
-	app.UseWebAssemblyDebugging();
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    app.UseWebAssemblyDebugging();
 }
 
 

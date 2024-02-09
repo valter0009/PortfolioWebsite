@@ -1,8 +1,10 @@
 ﻿namespace PortfolioWebsite.Api.Entities
 {
-	public class User
-	{
-		public int Id { get; set; }
-		public string UserName { get; set; }
-	}
+    public class User
+    {
+        public int Id { get; set; }
+        public string UserName { get; set; }
+
+
+    }
 }

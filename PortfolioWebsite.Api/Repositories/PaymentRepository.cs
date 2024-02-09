@@ -1,5 +1,6 @@
 ﻿using PortfolioWebsite.Api.Repositories.Contracts;
 using PortfolioWebsite.Models.DTOs;
+using Serilog;
 using Stripe;
 using Stripe.Checkout;
 
@@ -8,12 +9,43 @@ namespace PortfolioWebsite.Api.Repositories
     public class PaymentRepository : IPaymentRepository
     {
         private readonly string _stripeApiKey;
+        private readonly string _stripeEndpointSecret;
+        private readonly IShoppingCartRepository shoppingCartRepository;
+        private readonly IAuthRepository authRepository;
 
-        public PaymentRepository(IConfiguration configuration)
+
+
+        public PaymentRepository(IConfiguration configuration, IShoppingCartRepository shoppingCartRepository, IAuthRepository authRepository)
         {
 
             _stripeApiKey = configuration["StripeApiKey"];
+            _stripeEndpointSecret = configuration["StripeEndpoindScrt"];
             StripeConfiguration.ApiKey = _stripeApiKey;
+
+            this.shoppingCartRepository = shoppingCartRepository;
+            this.authRepository = authRepository;
+        }
+
+        public async Task FulfillOrder(HttpRequest request)
+        {
+            var json = await new StreamReader(request.Body).ReadToEndAsync();
+
+            try
+            {
+                var stripeEvent = EventUtility.ConstructEvent(json, request.Headers["Stripe-Signature"], _stripeEndpointSecret);
+
+                if (stripeEvent.Type == Events.CheckoutSessionCompleted)
+                {
+                    var session = stripeEvent.Data.Object as Session;
+                    var id = session.CustomerId;
+                    var email = session.CustomerEmail;
+                    Log.Information("Fulfillorder => {@json}", json);
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
         }
         public string CreateCheckoutSession(List<CartItemDto> cartItems)
         {
@@ -34,7 +66,8 @@ namespace PortfolioWebsite.Api.Repositories
                     ProductData = new SessionLineItemPriceDataProductDataOptions
                     {
                         Name = ci.ProductName,
-                        Description = ci.ProductDescription
+                        Description = ci.ProductDescription,
+
                     }
                 },
                 Quantity = ci.Qty
@@ -43,6 +76,7 @@ namespace PortfolioWebsite.Api.Repositories
             var options = new SessionCreateOptions
             {
 
+                CustomerEmail = authRepository.GetUserEmail(),
                 PaymentMethodTypes = ["card"],
                 LineItems = lineItems,
                 BillingAddressCollection = "required",
@@ -168,8 +202,8 @@ namespace PortfolioWebsite.Api.Repositories
         "PK"}
                 },
                 Mode = "payment",
-                SuccessUrl = domain + "/order-success",
-                CancelUrl = domain
+                SuccessUrl = "https://localhost:7240/order-success",
+                CancelUrl = "https://localhost:7240"
             };
 
             var service = new SessionService();

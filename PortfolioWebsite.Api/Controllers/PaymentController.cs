@@ -1,29 +1,24 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PortfolioWebsite.Api.Repositories.Contracts;
 using PortfolioWebsite.Models.DTOs;
-using Serilog;
-using Stripe;
 
 namespace PortfolioWebsite.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+
     public class PaymentController : ControllerBase
     {
         private readonly IPaymentRepository paymentRepository;
         private readonly string _stripeEndpointSecret;
 
-        public PaymentController(IPaymentRepository paymentRepository, IConfiguration configuration
-                             )
+
+        public PaymentController(IPaymentRepository paymentRepository, IConfiguration configuration)
         {
             this.paymentRepository = paymentRepository;
 
             _stripeEndpointSecret = configuration["StripeEndpoindScrt"];
-
         }
-        // This is your Stripe CLI webhook secret for testing your endpoint locally.
 
 
         [HttpPost("checkout")]
@@ -34,44 +29,24 @@ namespace PortfolioWebsite.Api.Controllers
             return Ok(url);
         }
 
+        [HttpPost]
 
-
-        [HttpPost("webhook")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> FulfillOrder()
         {
-
-            var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
-            Log.Information("WebhookStripe => {@json}", json);
-
             try
-
             {
-                var stripeEvent = EventUtility.ConstructEvent(json,
-                    Request.Headers["Stripe-Signature"], _stripeEndpointSecret);
-
-
-                if (stripeEvent.Type == Events.PaymentIntentSucceeded)
-                {
-                    var paymentIntent = stripeEvent.Data.Object as PaymentIntent;
-
-
-                }
-
-                else
-                {
-                    Console.WriteLine("Unhandled event type: {0}", stripeEvent.Type);
-                }
+                await paymentRepository.FulfillOrder(Request);
 
                 return Ok();
             }
-            catch (StripeException e)
+            catch (Exception e)
             {
                 return BadRequest();
             }
         }
 
+
+
     }
-
-
 }
 
