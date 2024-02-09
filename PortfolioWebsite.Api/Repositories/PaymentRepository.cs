@@ -37,8 +37,9 @@ namespace PortfolioWebsite.Api.Repositories
                 if (stripeEvent.Type == Events.CheckoutSessionCompleted)
                 {
                     var session = stripeEvent.Data.Object as Session;
-                    var id = session.CustomerId;
+
                     var email = session.CustomerEmail;
+                    await shoppingCartRepository.OnSuccessfulOrder(email);
                     Log.Information("Fulfillorder => {@json}", json);
                 }
             }

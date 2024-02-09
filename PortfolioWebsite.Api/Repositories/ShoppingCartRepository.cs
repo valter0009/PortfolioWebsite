@@ -21,7 +21,7 @@ namespace PortfolioWebsite.Api.Repositories
             this.httpContextAccessor = httpContextAccessor;
         }
 
-        private string GetUserId() => httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        private string GetUserId() => httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Email);
 
         private async Task<bool> CartItemExists(int productId)
         {
@@ -161,9 +161,9 @@ namespace PortfolioWebsite.Api.Repositories
 
             await portfolioWebsiteDbContext.SaveChangesAsync();
         }
-        public async Task OnSuccessfulOrder()
+        public async Task OnSuccessfulOrder(string userId)
         {
-            var userId = GetUserId();
+
             await UpdateProductInventory(userId);
             await DeleteUserCart(userId);
         }
