@@ -55,7 +55,7 @@ namespace PortfolioWebsite.Api.Repositories
 
 		public string CreateCheckoutSession(List<CartItemDto> cartItems)
 		{
-			var domain = "https://localhost:7240";
+			var domain = "https://solaricrealm.azurewebsites.net";
 			if (cartItems == null)
 			{
 				return null;
