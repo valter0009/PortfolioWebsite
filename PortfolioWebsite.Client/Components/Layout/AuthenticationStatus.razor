@@ -30,7 +30,7 @@
 </AuthorizeView>
 
 @code {
-    private async Task BeginLogOut()
+    private async Task BeginLogOut(MouseEventArgs args)
     {
         ManageCartItemsLocalStorageService.RemoveCollection();  
         await SignOutManager.SetSignOutState();

@@ -55,7 +55,7 @@ namespace PortfolioWebsite.Api.Repositories
 
 		public string CreateCheckoutSession(List<CartItemDto> cartItems)
 		{
-			var domain = "https://solaricrealm.azurewebsites.net";
+
 			if (cartItems == null)
 			{
 				return null;
@@ -215,8 +215,8 @@ namespace PortfolioWebsite.Api.Repositories
 								}
 					},
 				Mode = "payment",
-				SuccessUrl = "https://localhost:7240/order-success",
-				CancelUrl = "https://localhost:7240"
+				SuccessUrl = "https://solaricrealm.azurewebsites.net/order-success",
+				CancelUrl = "https://solaricrealm.azurewebsites.net"
 			};
 
 			var service = new SessionService();
