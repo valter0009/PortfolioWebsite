@@ -20,245 +20,184 @@ namespace PortfolioWebsite.Api.Data
 			modelBuilder.Entity<Product>().HasData(new Product
 			{
 				Id = 1,
-				Name = "Glossier - Beauty Kit",
-				Description = "A kit provided by Glossier, containing skin care, hair care and makeup products",
-				ImageURL = "/img/Beauty/Beauty1.png",
-				Price = 100,
-				Qty = 100,
+				Name = "Suntari - Black T-Shirt",
+				Description = "Merch for my band called Suntari",
+				ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/shirts/tr:w-800/suntarishirt2.jpg?updatedAt=1707594734174",
+				Price = 25,
+				Qty = 1000,
 				CategoryId = 1
 
 			});
 			modelBuilder.Entity<Product>().HasData(new Product
 			{
 				Id = 2,
-				Name = "Curology - Skin Care Kit",
-				Description = "A kit provided by Curology, containing skin care products",
-				ImageURL = "/img/Beauty/Beauty2.png",
-				Price = 50,
-				Qty = 45,
+				Name = "Inger Cowboy - Black T-Shirt",
+				Description = "Merch for my other band called Inger Cowboy",
+				ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/shirts/tr:w-800/INGERTR%C3%96JA.jpg?updatedAt=1707594733912",
+				Price = 25,
+				Qty = 1000,
 				CategoryId = 1
 
 			});
 			modelBuilder.Entity<Product>().HasData(new Product
 			{
 				Id = 3,
-				Name = "Cocooil - Organic Coconut Oil",
-				Description = "A kit provided by Curology, containing skin care products",
-				ImageURL = "/img/Beauty/Beauty3.png",
-				Price = 20,
-				Qty = 30,
+				Name = "Los Mucus - Black T-Shirt",
+				Description = "Merch for my third band called Los Mucus",
+				ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/shirts/tr:w-800/mucusshirt.jpg?updatedAt=1707594733635",
+				Price = 25,
+				Qty = 1000,
 				CategoryId = 1
 
 			});
 			modelBuilder.Entity<Product>().HasData(new Product
 			{
 				Id = 4,
-				Name = "Schwarzkopf - Hair Care and Skin Care Kit",
-				Description = "A kit provided by Schwarzkopf, containing skin care and hair care products",
-				ImageURL = "/img/Beauty/Beauty4.png",
-				Price = 50,
-				Qty = 60,
-				CategoryId = 1
+				Name = "Obeshimi - Sticker",
+				Description = "A cool sticker to stick on anything you want",
+				ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Gallery/Images/tr:w-800/GalleryImage%20(33).jpg?updatedAt=1705912745773",
+				Price = 3,
+				Qty = 1000,
+				CategoryId = 2
 
 			});
 			modelBuilder.Entity<Product>().HasData(new Product
 			{
 				Id = 5,
-				Name = "Skin Care Kit",
-				Description = "Skin Care Kit, containing skin care and hair care products",
-				ImageURL = "/img/Beauty/Beauty5.png",
-				Price = 30,
-				Qty = 85,
-				CategoryId = 1
+				Name = "Los Mucus - Sticker",
+				Description = "A cool Los Mucus sticker to stick on anything you want",
+				ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/stickers/tr:w-800/stickerredversion2.jpg?updatedAt=1707594734695",
+				Price = 3,
+				Qty = 1000,
+				CategoryId = 2
 
 			});
 			//Electronics Category
 			modelBuilder.Entity<Product>().HasData(new Product
 			{
 				Id = 6,
-				Name = "Air Pods",
-				Description = "Air Pods - in-ear wireless headphones",
-				ImageURL = "/img/Electronic/Electronics1.png",
-				Price = 100,
-				Qty = 120,
-				CategoryId = 3
+				Name = "Los Mucus - Sticker",
+				Description = "A cool Los Mucus sticker to stick on anything you want",
+				ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/stickers/tr:w-800/sticker.jpg?updatedAt=1707594734694",
+				Price = 3,
+				Qty = 1000,
+				CategoryId = 2
 
 			});
 			modelBuilder.Entity<Product>().HasData(new Product
 			{
 				Id = 7,
-				Name = "On-ear Golden Headphones",
-				Description = "On-ear Golden Headphones - these headphones are not wireless",
-				ImageURL = "/img/Electronic/Electronics2.png",
-				Price = 40,
-				Qty = 200,
-				CategoryId = 3
+				Name = "Los Mucus - Sticker",
+				Description = "A cool Los Mucus sticker to stick on anything you want",
+				ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/stickers/tr:w-800/Mucusskull.jpg?updatedAt=1707594734689",
+				Price = 3,
+				Qty = 1000,
+				CategoryId = 2
 
 			});
 			modelBuilder.Entity<Product>().HasData(new Product
 			{
 				Id = 8,
-				Name = "On-ear Black Headphones",
-				Description = "On-ear Black Headphones - these headphones are not wireless",
-				ImageURL = "/img/Electronic/Electronics3.png",
+				Name = "Birds - Print",
+				Description = "A 400x200 Print",
+				ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/prints/tr:w-800/birds.jpg?updatedAt=1707594856304",
 				Price = 40,
-				Qty = 300,
+				Qty = 1000,
 				CategoryId = 3
 
 			});
 			modelBuilder.Entity<Product>().HasData(new Product
 			{
 				Id = 9,
-				Name = "Sennheiser Digital Camera with Tripod",
-				Description = "Sennheiser Digital Camera - High quality digital camera provided by Sennheiser - includes tripod",
-				ImageURL = "/img/Electronic/Electronic4.png",
-				Price = 600,
-				Qty = 20,
+				Name = "Ascension - Print",
+				Description = "A 400x200 Print",
+				ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/prints/tr:w-800/sun.jpg?updatedAt=1707594855618",
+				Price = 40,
+				Qty = 1000,
 				CategoryId = 3
 
 			});
 			modelBuilder.Entity<Product>().HasData(new Product
 			{
 				Id = 10,
-				Name = "Canon Digital Camera",
-				Description = "Canon Digital Camera - High quality digital camera provided by Canon",
-				ImageURL = "/img/Electronic/Electronic5.png",
-				Price = 500,
-				Qty = 15,
+				Name = "Explosion - Print",
+				Description = "A 400x200 Print",
+				ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/prints/tr:w-800/explosion.jpg?updatedAt=1707594855179",
+				Price = 40,
+				Qty = 1000,
 				CategoryId = 3
 
 			});
 			modelBuilder.Entity<Product>().HasData(new Product
 			{
 				Id = 11,
-				Name = "Nintendo Gameboy",
-				Description = "Gameboy - Provided by Nintendo",
-				ImageURL = "/img/Electronic/technology6.png",
-				Price = 100,
-				Qty = 60,
+				Name = "Mother - Print",
+				Description = "A 300x200 Print",
+				ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/prints/tr:w-800/holy.jpg?updatedAt=1707594853722",
+				Price = 40,
+				Qty = 1000,
 				CategoryId = 3
 			});
 			//Furniture Category
 			modelBuilder.Entity<Product>().HasData(new Product
 			{
 				Id = 12,
-				Name = "Black Leather Office Chair",
-				Description = "Very comfortable black leather office chair",
-				ImageURL = "/img/Furniture/Furniture1.png",
-				Price = 50,
-				Qty = 212,
-				CategoryId = 2
+				Name = "Devotion - Print",
+				Description = "A 400x200 Print",
+				ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/prints/tr:w-800/Devotion%20Gray.jpg?updatedAt=1707594734206",
+				Price = 40,
+				Qty = 1000,
+				CategoryId = 3
 			});
 
 			modelBuilder.Entity<Product>().HasData(new Product
 			{
 				Id = 13,
-				Name = "Pink Leather Office Chair",
-				Description = "Very comfortable pink leather office chair",
-				ImageURL = "/img/Furniture/Furniture2.png",
-				Price = 50,
-				Qty = 112,
-				CategoryId = 2
+				Name = "No Tobacco - Print",
+				Description = "A 400x200 Print",
+				ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/prints/tr:w-800/No%20Tobaccoshirt2.png?updatedAt=1707594733986",
+				Price = 40,
+				Qty = 1000,
+				CategoryId = 3
 			});
 			modelBuilder.Entity<Product>().HasData(new Product
 			{
 				Id = 14,
-				Name = "Lounge Chair",
-				Description = "Very comfortable lounge chair",
-				ImageURL = "/img/Furniture/Furniture3.png",
-				Price = 70,
-				Qty = 90,
-				CategoryId = 2
+				Name = "Los Mucus / Flat Cap - Poster",
+				Description = "A poster from a gig at Flat Cap, Helsingborg",
+				ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/posters/tr:w-800/Flatcap.jpg?updatedAt=1707594735646",
+				Price = 20,
+				Qty = 1000,
+				CategoryId = 4
 			});
 			modelBuilder.Entity<Product>().HasData(new Product
 			{
 				Id = 15,
-				Name = "Silver Lounge Chair",
-				Description = "Very comfortable Silver lounge chair",
-				ImageURL = "/img/Furniture/Furniture4.png",
-				Price = 120,
-				Qty = 95,
-				CategoryId = 2
+				Name = "Los Mucus / Grand - Poster",
+				Description = "A poster from a gig at Grand, Malmö",
+				ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/posters/tr:w-800/GRANDversion2.jpg?updatedAt=1707594734910",
+				Price = 20,
+				Qty = 1000,
+				CategoryId = 4
 			});
 			modelBuilder.Entity<Product>().HasData(new Product
 			{
 				Id = 16,
-				Name = "Porcelain Table Lamp",
-				Description = "White and blue Porcelain Table Lamp",
-				ImageURL = "/img/Furniture/Furniture6.png",
-				Price = 15,
-				Qty = 100,
-				CategoryId = 2
+				Name = "Los Mucus / Flat Cap - Poster",
+				Description = "A poster from a gig at Flat Cap, Helsingborg",
+				ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/posters/tr:w-800/Flatcap2.jpg?updatedAt=1707594734836",
+				Price = 20,
+				Qty = 1000,
+				CategoryId = 4
 			});
 			modelBuilder.Entity<Product>().HasData(new Product
 			{
 				Id = 17,
-				Name = "Office Table Lamp",
-				Description = "Office Table Lamp",
-				ImageURL = "/img/Furniture/Furniture7.png",
+				Name = "Los Mucus / Hemgården - Poster",
+				Description = "A poster from a gig at Hemgården, Lund",
+				ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/posters/tr:w-800/Posterklar.jpg?updatedAt=1707594734268",
 				Price = 20,
-				Qty = 73,
-				CategoryId = 2
-			});
-			//Shoes Category
-			modelBuilder.Entity<Product>().HasData(new Product
-			{
-				Id = 18,
-				Name = "Puma Sneakers",
-				Description = "Comfortable Puma Sneakers in most sizes",
-				ImageURL = "/img/Shoes/Shoes1.png",
-				Price = 100,
-				Qty = 50,
-				CategoryId = 4
-			});
-			modelBuilder.Entity<Product>().HasData(new Product
-			{
-				Id = 19,
-				Name = "Colorful Trainers",
-				Description = "Colorful trainsers - available in most sizes",
-				ImageURL = "/img/Shoes/Shoes2.png",
-				Price = 150,
-				Qty = 60,
-				CategoryId = 4
-			});
-			modelBuilder.Entity<Product>().HasData(new Product
-			{
-				Id = 20,
-				Name = "Blue Nike Trainers",
-				Description = "Blue Nike Trainers - available in most sizes",
-				ImageURL = "/img/Shoes/Shoes3.png",
-				Price = 200,
-				Qty = 70,
-				CategoryId = 4
-			});
-			modelBuilder.Entity<Product>().HasData(new Product
-			{
-				Id = 21,
-				Name = "Colorful Hummel Trainers",
-				Description = "Colorful Hummel Trainers - available in most sizes",
-				ImageURL = "/img/Shoes/Shoes4.png",
-				Price = 120,
-				Qty = 120,
-				CategoryId = 4
-			});
-			modelBuilder.Entity<Product>().HasData(new Product
-			{
-				Id = 22,
-				Name = "Red Nike Trainers",
-				Description = "Red Nike Trainers - available in most sizes",
-				ImageURL = "/img/Shoes/Shoes5.png",
-				Price = 200,
-				Qty = 100,
-				CategoryId = 4
-			});
-			modelBuilder.Entity<Product>().HasData(new Product
-			{
-				Id = 23,
-				Name = "Birkenstock Sandles",
-				Description = "Birkenstock Sandles - available in most sizes",
-				ImageURL = "/img/Shoes/Shoes6.png",
-				Price = 50,
-				Qty = 150,
+				Qty = 1000,
 				CategoryId = 4
 			});
 
@@ -269,22 +208,22 @@ namespace PortfolioWebsite.Api.Data
 			modelBuilder.Entity<ProductCategory>().HasData(new ProductCategory
 			{
 				Id = 1,
-				Name = "Beauty"
+				Name = "Shirts"
 			});
 			modelBuilder.Entity<ProductCategory>().HasData(new ProductCategory
 			{
 				Id = 2,
-				Name = "Furniture"
+				Name = "Stickers"
 			});
 			modelBuilder.Entity<ProductCategory>().HasData(new ProductCategory
 			{
 				Id = 3,
-				Name = "Electronics"
+				Name = "Prints"
 			});
 			modelBuilder.Entity<ProductCategory>().HasData(new ProductCategory
 			{
 				Id = 4,
-				Name = "Shoes"
+				Name = "Posters"
 			});
 		}
 

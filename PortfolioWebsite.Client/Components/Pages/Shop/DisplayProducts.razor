@@ -4,10 +4,10 @@
 
 @foreach (var item in Products)
 {
-	<div class="col-md-3 mb-2">
+	<div class="col-lg-3 mb-3 d-flex align-items-stretch">
 		<a href="/ProductDetails/@item.Id">
-			<div class="card">
-				<img class="img-thumbnail" src="@item.ImageURL" />
+			<div class="card flex-grow-1 h-100">
+				<img class=" flex-grow-1 object-fit-cover img-fluid" src="@item.ImageURL" />
 				<div class="card-body">
 					<h5 class="card-title mb-3">
 						@item.Name

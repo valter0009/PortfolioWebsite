@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PortfolioWebsite.Api.Data;
 
@@ -10,9 +11,11 @@ using PortfolioWebsite.Api.Data;
 namespace PortfolioWebsite.Api.Migrations
 {
     [DbContext(typeof(PortfolioWebsiteDbContext))]
-    partial class PortfolioWebsiteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240210201545_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -173,7 +176,7 @@ namespace PortfolioWebsite.Api.Migrations
                             Id = 8,
                             CategoryId = 3,
                             Description = "A 400x200 Print",
-                            ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/prints/tr:w-800/birds.jpg?updatedAt=1707594856304",
+                            ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/Prints/tr:w-800/birds.jpg?updatedAt=1707594856304",
                             Name = "Birds - Print",
                             Price = 40m,
                             Qty = 1000
@@ -183,7 +186,7 @@ namespace PortfolioWebsite.Api.Migrations
                             Id = 9,
                             CategoryId = 3,
                             Description = "A 400x200 Print",
-                            ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/prints/tr:w-800/sun.jpg?updatedAt=1707594855618",
+                            ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/Prints/tr:w-800/sun.jpg?updatedAt=1707594855618",
                             Name = "Ascension - Print",
                             Price = 40m,
                             Qty = 1000
@@ -193,7 +196,7 @@ namespace PortfolioWebsite.Api.Migrations
                             Id = 10,
                             CategoryId = 3,
                             Description = "A 400x200 Print",
-                            ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/prints/tr:w-800/explosion.jpg?updatedAt=1707594855179",
+                            ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/Prints/tr:w-800/explosion.jpg?updatedAt=1707594855179",
                             Name = "Explosion - Print",
                             Price = 40m,
                             Qty = 1000
@@ -203,7 +206,7 @@ namespace PortfolioWebsite.Api.Migrations
                             Id = 11,
                             CategoryId = 3,
                             Description = "A 300x200 Print",
-                            ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/prints/tr:w-800/holy.jpg?updatedAt=1707594853722",
+                            ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/Prints/tr:w-800/holy.jpg?updatedAt=1707594853722",
                             Name = "Mother - Print",
                             Price = 40m,
                             Qty = 1000
@@ -213,7 +216,7 @@ namespace PortfolioWebsite.Api.Migrations
                             Id = 12,
                             CategoryId = 3,
                             Description = "A 400x200 Print",
-                            ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/prints/tr:w-800/Devotion%20Gray.jpg?updatedAt=1707594734206",
+                            ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/Prints/tr:w-800/Devotion%20Gray.jpg?updatedAt=1707594734206",
                             Name = "Devotion - Print",
                             Price = 40m,
                             Qty = 1000
@@ -223,7 +226,7 @@ namespace PortfolioWebsite.Api.Migrations
                             Id = 13,
                             CategoryId = 3,
                             Description = "A 400x200 Print",
-                            ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/prints/tr:w-800/No%20Tobaccoshirt2.png?updatedAt=1707594733986",
+                            ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/Prints/tr:w-800/No%20Tobaccoshirt2.png?updatedAt=1707594733986",
                             Name = "No Tobacco - Print",
                             Price = 40m,
                             Qty = 1000

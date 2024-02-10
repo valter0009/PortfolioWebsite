@@ -100,10 +100,10 @@ namespace PortfolioWebsite.Api.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Beauty" },
-                    { 2, "Furniture" },
-                    { 3, "Electronics" },
-                    { 4, "Shoes" }
+                    { 1, "Shirts" },
+                    { 2, "Stickers" },
+                    { 3, "Prints" },
+                    { 4, "Posters" }
                 });
 
             migrationBuilder.InsertData(
@@ -111,29 +111,23 @@ namespace PortfolioWebsite.Api.Migrations
                 columns: new[] { "Id", "CategoryId", "Description", "ImageURL", "Name", "Price", "Qty" },
                 values: new object[,]
                 {
-                    { 1, 1, "A kit provided by Glossier, containing skin care, hair care and makeup products", "/img/Beauty/Beauty1.png", "Glossier - Beauty Kit", 100m, 100 },
-                    { 2, 1, "A kit provided by Curology, containing skin care products", "/img/Beauty/Beauty2.png", "Curology - Skin Care Kit", 50m, 45 },
-                    { 3, 1, "A kit provided by Curology, containing skin care products", "/img/Beauty/Beauty3.png", "Cocooil - Organic Coconut Oil", 20m, 30 },
-                    { 4, 1, "A kit provided by Schwarzkopf, containing skin care and hair care products", "/img/Beauty/Beauty4.png", "Schwarzkopf - Hair Care and Skin Care Kit", 50m, 60 },
-                    { 5, 1, "Skin Care Kit, containing skin care and hair care products", "/img/Beauty/Beauty5.png", "Skin Care Kit", 30m, 85 },
-                    { 6, 3, "Air Pods - in-ear wireless headphones", "/img/Electronic/Electronics1.png", "Air Pods", 100m, 120 },
-                    { 7, 3, "On-ear Golden Headphones - these headphones are not wireless", "/img/Electronic/Electronics2.png", "On-ear Golden Headphones", 40m, 200 },
-                    { 8, 3, "On-ear Black Headphones - these headphones are not wireless", "/img/Electronic/Electronics3.png", "On-ear Black Headphones", 40m, 300 },
-                    { 9, 3, "Sennheiser Digital Camera - High quality digital camera provided by Sennheiser - includes tripod", "/img/Electronic/Electronic4.png", "Sennheiser Digital Camera with Tripod", 600m, 20 },
-                    { 10, 3, "Canon Digital Camera - High quality digital camera provided by Canon", "/img/Electronic/Electronic5.png", "Canon Digital Camera", 500m, 15 },
-                    { 11, 3, "Gameboy - Provided by Nintendo", "/img/Electronic/technology6.png", "Nintendo Gameboy", 100m, 60 },
-                    { 12, 2, "Very comfortable black leather office chair", "/img/Furniture/Furniture1.png", "Black Leather Office Chair", 50m, 212 },
-                    { 13, 2, "Very comfortable pink leather office chair", "/img/Furniture/Furniture2.png", "Pink Leather Office Chair", 50m, 112 },
-                    { 14, 2, "Very comfortable lounge chair", "/img/Furniture/Furniture3.png", "Lounge Chair", 70m, 90 },
-                    { 15, 2, "Very comfortable Silver lounge chair", "/img/Furniture/Furniture4.png", "Silver Lounge Chair", 120m, 95 },
-                    { 16, 2, "White and blue Porcelain Table Lamp", "/img/Furniture/Furniture6.png", "Porcelain Table Lamp", 15m, 100 },
-                    { 17, 2, "Office Table Lamp", "/img/Furniture/Furniture7.png", "Office Table Lamp", 20m, 73 },
-                    { 18, 4, "Comfortable Puma Sneakers in most sizes", "/img/Shoes/Shoes1.png", "Puma Sneakers", 100m, 50 },
-                    { 19, 4, "Colorful trainsers - available in most sizes", "/img/Shoes/Shoes2.png", "Colorful Trainers", 150m, 60 },
-                    { 20, 4, "Blue Nike Trainers - available in most sizes", "/img/Shoes/Shoes3.png", "Blue Nike Trainers", 200m, 70 },
-                    { 21, 4, "Colorful Hummel Trainers - available in most sizes", "/img/Shoes/Shoes4.png", "Colorful Hummel Trainers", 120m, 120 },
-                    { 22, 4, "Red Nike Trainers - available in most sizes", "/img/Shoes/Shoes5.png", "Red Nike Trainers", 200m, 100 },
-                    { 23, 4, "Birkenstock Sandles - available in most sizes", "/img/Shoes/Shoes6.png", "Birkenstock Sandles", 50m, 150 }
+                    { 1, 1, "Merch for my band called Suntari", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/shirts/tr:w-800/suntarishirt2.jpg?updatedAt=1707594734174", "Suntari - Black T-Shirt", 25m, 1000 },
+                    { 2, 1, "Merch for my other band called Inger Cowboy", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/shirts/tr:w-800/INGERTR%C3%96JA.jpg?updatedAt=1707594733912", "Inger Cowboy - Black T-Shirt", 25m, 1000 },
+                    { 3, 1, "Merch for my third band called Los Mucus", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/shirts/tr:w-800/mucusshirt.jpg?updatedAt=1707594733635", "Los Mucus - Black T-Shirt", 25m, 1000 },
+                    { 4, 2, "A cool sticker to stick on anything you want", "https://ik.imagekit.io/valter/StefanPortfolio/Gallery/Images/tr:w-800/GalleryImage%20(33).jpg?updatedAt=1705912745773", "Obeshimi - Sticker", 3m, 1000 },
+                    { 5, 2, "A cool Los Mucus sticker to stick on anything you want", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/stickers/tr:w-800/stickerredversion2.jpg?updatedAt=1707594734695", "Los Mucus - Sticker", 3m, 1000 },
+                    { 6, 2, "A cool Los Mucus sticker to stick on anything you want", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/stickers/tr:w-800/sticker.jpg?updatedAt=1707594734694", "Los Mucus - Sticker", 3m, 1000 },
+                    { 7, 2, "A cool Los Mucus sticker to stick on anything you want", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/stickers/tr:w-800/Mucusskull.jpg?updatedAt=1707594734689", "Los Mucus - Sticker", 3m, 1000 },
+                    { 8, 3, "A 400x200 Print", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/Prints/tr:w-800/birds.jpg?updatedAt=1707594856304", "Birds - Print", 40m, 1000 },
+                    { 9, 3, "A 400x200 Print", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/Prints/tr:w-800/sun.jpg?updatedAt=1707594855618", "Ascension - Print", 40m, 1000 },
+                    { 10, 3, "A 400x200 Print", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/Prints/tr:w-800/explosion.jpg?updatedAt=1707594855179", "Explosion - Print", 40m, 1000 },
+                    { 11, 3, "A 300x200 Print", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/Prints/tr:w-800/holy.jpg?updatedAt=1707594853722", "Mother - Print", 40m, 1000 },
+                    { 12, 3, "A 400x200 Print", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/Prints/tr:w-800/Devotion%20Gray.jpg?updatedAt=1707594734206", "Devotion - Print", 40m, 1000 },
+                    { 13, 3, "A 400x200 Print", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/Prints/tr:w-800/No%20Tobaccoshirt2.png?updatedAt=1707594733986", "No Tobacco - Print", 40m, 1000 },
+                    { 14, 4, "A poster from a gig at Flat Cap, Helsingborg", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/posters/tr:w-800/Flatcap.jpg?updatedAt=1707594735646", "Los Mucus / Flat Cap - Poster", 20m, 1000 },
+                    { 15, 4, "A poster from a gig at Grand, Malmö", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/posters/tr:w-800/GRANDversion2.jpg?updatedAt=1707594734910", "Los Mucus / Grand - Poster", 20m, 1000 },
+                    { 16, 4, "A poster from a gig at Flat Cap, Helsingborg", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/posters/tr:w-800/Flatcap2.jpg?updatedAt=1707594734836", "Los Mucus / Flat Cap - Poster", 20m, 1000 },
+                    { 17, 4, "A poster from a gig at Hemgården, Lund", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/posters/tr:w-800/Posterklar.jpg?updatedAt=1707594734268", "Los Mucus / Hemgården - Poster", 20m, 1000 }
                 });
 
             migrationBuilder.CreateIndex(
