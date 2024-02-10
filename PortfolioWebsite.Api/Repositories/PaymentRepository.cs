@@ -39,7 +39,8 @@ namespace PortfolioWebsite.Api.Repositories
                     var session = stripeEvent.Data.Object as Session;
 
                     var email = session.CustomerEmail;
-                    await shoppingCartRepository.OnSuccessfulOrder(email);
+                    var user = await authRepository.GetUserByEmail(email);
+                    await shoppingCartRepository.OnSuccessfulOrder(user.Id);
                     Log.Information("Fulfillorder => {@json}", json);
                 }
             }
@@ -77,7 +78,7 @@ namespace PortfolioWebsite.Api.Repositories
             var options = new SessionCreateOptions
             {
 
-                CustomerEmail = authRepository.GetUserEmail(),
+                CustomerEmail = authRepository.GetUserEmailFromClaims(),
                 PaymentMethodTypes = ["card"],
                 LineItems = lineItems,
                 BillingAddressCollection = "required",

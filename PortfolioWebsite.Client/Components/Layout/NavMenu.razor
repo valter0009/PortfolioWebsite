@@ -1,5 +1,7 @@
-﻿@inject IJSRuntime JSRuntime
-
+﻿@using PortfolioWebsite.Client.Services.Contracts
+@inject IJSRuntime JSRuntime
+@inject IAuthService AuthService
+@inject AuthenticationStateProvider AuthenticationStateProvider
 <nav class="navbar navbar-expand-lg bg-body-tertiary px-4 sticky-top gothic-font" id="navbar">
     <div class="container-fluid">
         
@@ -44,11 +46,35 @@
 
 
 @code {
-   
+    protected override void OnInitialized()
+    {
+        AuthenticationStateProvider.AuthenticationStateChanged += AuthenticationStateChanged;
+    }
+
+    private async void AuthenticationStateChanged(Task<AuthenticationState> task)
+    {
+        var authState = await task;
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            await AuthService.CreateUser();
+            
+            StateHasChanged();
+        }
+    }
+
+    public void Dispose()
+    {
+       
+        AuthenticationStateProvider.AuthenticationStateChanged -= AuthenticationStateChanged;
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
-        {   
+        {
+           
             await JSRuntime.InvokeVoidAsync("toggleHamburger");
         }
     }

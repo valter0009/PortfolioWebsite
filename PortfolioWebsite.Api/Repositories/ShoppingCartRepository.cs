@@ -3,7 +3,6 @@ using PortfolioWebsite.Api.Data;
 using PortfolioWebsite.Api.Entities;
 using PortfolioWebsite.Api.Repositories.Contracts;
 using PortfolioWebsite.Models.DTOs;
-using System.Security.Claims;
 
 namespace PortfolioWebsite.Api.Repositories
 {
@@ -11,17 +10,18 @@ namespace PortfolioWebsite.Api.Repositories
     {
         private readonly PortfolioWebsiteDbContext portfolioWebsiteDbContext;
         private readonly IHttpContextAccessor httpContextAccessor;
-
-
+        private readonly IAuthRepository authRepository;
         public ShoppingCartRepository(
             PortfolioWebsiteDbContext portfolioWebsiteDbContext,
-            IHttpContextAccessor httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor,
+            IAuthRepository authRepository)
         {
             this.portfolioWebsiteDbContext = portfolioWebsiteDbContext;
             this.httpContextAccessor = httpContextAccessor;
+            this.authRepository = authRepository;
         }
 
-        private string GetUserId() => httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Email);
+
 
         private async Task<bool> CartItemExists(int productId)
         {
@@ -84,10 +84,11 @@ namespace PortfolioWebsite.Api.Repositories
 
         public async Task<IEnumerable<CartItem>> GetItems()
         {
+            var userId = authRepository.GetUserIdFromClaims();
             return await (from cart in portfolioWebsiteDbContext.Carts
                           join cartItem in portfolioWebsiteDbContext.CartItems
                           on cart.Id equals cartItem.CartId
-                          where cart.UserId == GetUserId()
+                          where cart.UserId == userId
                           select new CartItem
                           {
                               Id = cartItem.Id,
@@ -129,10 +130,11 @@ namespace PortfolioWebsite.Api.Repositories
 
         public async Task<Cart> GetOrCreateCart()
         {
-            var cart = await portfolioWebsiteDbContext.Carts.FirstOrDefaultAsync(c => c.UserId == GetUserId());
+            var userId = authRepository.GetUserIdFromClaims();
+            var cart = await portfolioWebsiteDbContext.Carts.FirstOrDefaultAsync(c => c.UserId == userId);
             if (cart == null)
             {
-                cart = new Cart { UserId = GetUserId() };
+                cart = new Cart { UserId = userId };
                 portfolioWebsiteDbContext.Carts.Add(cart);
                 await portfolioWebsiteDbContext.SaveChangesAsync();
             }

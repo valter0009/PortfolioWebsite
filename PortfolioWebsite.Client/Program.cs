@@ -38,6 +38,7 @@ builder.Services.AddHttpClient("AuthorizedClient", client =>
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 
 builder.Services.AddOidcAuthentication(options =>

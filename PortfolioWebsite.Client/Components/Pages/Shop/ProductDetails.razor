@@ -20,33 +20,43 @@ else
 		<div class="col-md-6">
 			<h3>@Product.Name</h3>
 			<p class="mb-4">@Product.Description</p>
+			@if(Product.Qty>0){
 			<p class="mb-4">
 				<b>
 					@Product.Price.ToString("C", new CultureInfo("en-US"))&nbsp;(@Product.Qty items in stock)
 				</b>
-			</p>
+				</p>
 
-			<AuthorizeView>
-				<Authorized>
-				<div>
-				<button class="alterbtn alterbtn-secondary"
-					@onclick="()=>(AddToCart_Click(new CartItemToAddDto{
+				<AuthorizeView>
+					<Authorized>
+						<div>
+							<button class="alterbtn alterbtn-secondary"
+									@onclick="()=>(AddToCart_Click(new CartItemToAddDto{
 						ProductId=Product.Id,
 						Qty=1
 						}))">
-					<b>Add to cart</b>
-					</button>
+								<b>Add to cart</b>
+							</button>
+
+						</div>
+					</Authorized>
+					<NotAuthorized>
+						<div>
+							<button class="alterbtn alterbtn-secondary text-dark text-decoration-none" @onclick="RedirectToLoginAndReturn">
+								<b>Login</b> to add to cart
+							</button>
+						</div>
+					</NotAuthorized>
+				</AuthorizeView>
+			}else{
+				<p class="mb-4">
+					<b>
+						@Product.Price.ToString("C", new CultureInfo("en-US"))&nbsp;(Out of stock)
+					</b>
+				</p>
+			}
+
 			
-				</div>
-				</Authorized>
-				 <NotAuthorized>
-					<div>
-						<button class="alterbtn alterbtn-secondary text-dark text-decoration-none" @onclick="RedirectToLoginAndReturn">
-							<b>Login</b> to add to cart
-						</button>
-					</div>
-				 </NotAuthorized> 
-			</AuthorizeView>
 		</div>
 	</div>
 }

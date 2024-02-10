@@ -9,7 +9,7 @@
     <Authorized>
 
         <div class="d-flex flex-row">
-            <a href="#" class="btn mt-1 nav-item-container-fix" @onclick="BeginSignOut">
+            <a href="#" class="btn mt-1 nav-item-container-fix" @onclick="BeginLogOut">
                
                 <i class="bi bi-person-fill-slash fa-lg"></i>
                                    
@@ -30,7 +30,7 @@
 </AuthorizeView>
 
 @code {
-    private async Task BeginSignOut(MouseEventArgs args)
+    private async Task BeginLogOut()
     {
         ManageCartItemsLocalStorageService.RemoveCollection();  
         await SignOutManager.SetSignOutState();
