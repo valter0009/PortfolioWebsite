@@ -27,4 +27,4 @@ Building this website was a great opportunity to learn some core web development
 - **Dependency Injection**: Used in ASP.NET Core for cleaner, modular code that allows the app to be more flexible to changes.
 
 ## It's a long journey
-This website is very much a work in progress. It's a project where I can apply what I'm learning in real-time and experiment with new ideas. I intend to add new features as I learn. 
+This website is very much a work in progress. It's a project where I can apply what I'm learning in real-time and experiment with new ideas. I intend to add new features and fix existing bugs as I learn.
