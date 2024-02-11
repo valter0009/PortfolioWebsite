@@ -5,17 +5,18 @@
 @inject NavigationManager Navigation
 @inject SignOutSessionStateManager SignOutManager
 @inject IManageCartItemsLocalStorageService ManageCartItemsLocalStorageService
+@inject IJSRuntime JSRuntime
 <AuthorizeView>
     <Authorized>
 
         <div class="d-flex flex-row">
             <a href="#" class="btn mt-1 nav-item-container-fix" @onclick="BeginLogOut">
-               
+
                 <i class="bi bi-person-fill-slash fa-lg"></i>
-                                   
+
             </a>
         </div>
-       
+
     </Authorized>
     <NotAuthorized>
 
@@ -24,16 +25,25 @@
                 <i class="bi bi-person-fill-lock fa-lg"></i>
             </a>
         </div>
-            
-        
+
+
     </NotAuthorized>
 </AuthorizeView>
 
 @code {
     private async Task BeginLogOut(MouseEventArgs args)
     {
-        ManageCartItemsLocalStorageService.RemoveCollection();  
+        ManageCartItemsLocalStorageService.RemoveCollection();
         await SignOutManager.SetSignOutState();
         Navigation.NavigateTo("authentication/logout");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+
+            await JSRuntime.InvokeVoidAsync("toggleHamburger");
+        }
     }
 }

@@ -74,11 +74,7 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
             try
             {
                 ShoppingCartItems = (List<CartItemDto>)await ManageCartItemsLocalStorageService.GetCollection();
-                if (ShoppingCartItems.Any(item => item.ProductId == cartItemToAddDto.ProductId))
-                {
-                    Console.WriteLine("Item already exists in the cart.");
-                    return;
-                }
+
                 var cartItemDto = await ShoppingCartService.AddItem(cartItemToAddDto);
                 if (cartItemDto != null)
                 {

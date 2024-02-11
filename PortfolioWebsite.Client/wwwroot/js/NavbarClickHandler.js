@@ -1,58 +1,47 @@
-﻿document.addEventListener('DOMContentLoaded', function () {
+﻿document.addEventListener('DOMContentLoaded', () => {
+    const toggleHamburger = () => {
+        const toggler = document.querySelector('.navbar-toggler');
+        const navbarCollapse = document.getElementById('navbarCollapse');
 
-    window.toggleHamburger = function () {
-        var toggler = document.querySelector('.navbar-toggler');
-        var navbarCollapse = document.getElementById('navbarCollapse');
-        let lastScrollTop = 0;
-
-        // Function to collapse the menu
-        function collapseMenu() {
+        const collapseMenu = () => {
             if (navbarCollapse.classList.contains('show')) {
-                toggler.click(); // Simulate a click on the toggler to collapse the navbar
+                toggler.click(); // Simulate a click to collapse the navbar
             }
-        }
+        };
 
-        // Toggle the menu when the toggler button is clicked
-        toggler.addEventListener('click', function (event) {
-            event.stopPropagation(); // Prevent the event from bubbling up to the document level
+        const toggleRotation = () => {
+            toggler.classList.toggle('rotate');
+            toggler.classList.toggle('rotate-back');
+        };
 
-            if (this.classList.contains('rotate')) {
-                this.classList.remove('rotate');
-                this.classList.add('rotate-back');
-            } else {
-                this.classList.remove('rotate-back');
-                this.classList.add('rotate');
-            }
-        });
+        const isClickInsideNav = (event) => {
+            return toggler.contains(event.target) || navbarCollapse.contains(event.target);
+        };
 
-        // Listen for clicks outside the navigation menu to collapse it
-        document.addEventListener('click', function (event) {
-            var isClickInsideNav = toggler.contains(event.target) || navbarCollapse.contains(event.target);
-
-            if (!isClickInsideNav) {
-                collapseMenu();
-            }
-        });
-
-
-
-        // Collapse the menu when a link is clicked
-        var navLinks = document.querySelectorAll('.navbar-nav a.nav-link');
-        navLinks.forEach(function (link) {
-            link.addEventListener('click', function () {
-                collapseMenu();
+        const addClickListener = (selector, handler) => {
+            document.querySelectorAll(selector).forEach(link => {
+                link.addEventListener('click', handler);
             });
+        };
+
+        // Toggle the menu and rotation on toggler click
+        toggler.addEventListener('click', (event) => {
+            event.stopPropagation(); // Prevent bubbling up
+            toggleRotation();
         });
 
-        var cartMenuLinks = document.querySelectorAll('.cart-menu');
-        cartMenuLinks.forEach(function (link) {
-            link.addEventListener('click', function () {
+        // Collapse the menu on click outside
+        document.addEventListener('click', (event) => {
+            if (!isClickInsideNav(event)) {
                 collapseMenu();
-            });
+            }
         });
-    }
+
+        // Collapse the menu when a navbar or cart menu link is clicked
+
+        addClickListener('.click-collapse', collapseMenu);
+    };
+
+    window.toggleHamburger = toggleHamburger; // Expose to global scope if needed
+    toggleHamburger(); // Initialize the functionality
 });
-
-
-
-

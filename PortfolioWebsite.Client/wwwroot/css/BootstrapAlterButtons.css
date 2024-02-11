@@ -13,6 +13,11 @@
     position: relative;
 }
 
+    .alterbtn:active {
+        box-shadow: 0.2em 0.2em currentColor;
+        transform: scale(1.1);
+    }
+
     .alterbtn:before, .alterbtn:after {
         content: "";
         position: absolute;
