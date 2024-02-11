@@ -15,7 +15,7 @@ Creating this website let me learn many new technologies. Here's a rundown:
 - **JavaScript, CSS, and HTML**: The backbone of web development, crucial for structuring and styling the content.
 - **Authentication Services**: For secure logins and user management using  ASP.NET Core Identity and Auth0 .
 - **Payment Services**: Itegrated Stripe that is handling payment processing, securely managing transactions, and ensuring a seamless checkout experience for users.
-- 
+ 
 ## Concepts Explored
 Building this website was a great opportunity to learn some core web development concepts:
 
