@@ -10,14 +10,14 @@ namespace PortfolioWebsite.Api.Controllers
     public class PaymentController : ControllerBase
     {
         private readonly IPaymentRepository _paymentRepository;
-        private readonly string _stripeEndpointSecret;
 
 
-        public PaymentController(IPaymentRepository paymentRepository, IConfiguration configuration)
+
+        public PaymentController(IPaymentRepository paymentRepository)
         {
             this._paymentRepository = paymentRepository;
 
-            _stripeEndpointSecret = configuration["StripeEndpoindScrt"];
+
         }
 
 

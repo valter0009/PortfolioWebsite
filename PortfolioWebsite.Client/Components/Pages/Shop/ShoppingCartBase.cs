@@ -154,13 +154,6 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
             await ManageCartItemsLocalStorageService.SaveCollection(ShoppingCartItems);
         }
 
-        private async Task RemoveCartItems()
-        {
-            await ShoppingCartService.DeleteItems();
-            ShoppingCartItems.Clear();
-            await ManageCartItemsLocalStorageService.RemoveCollection();
-        }
-
 
         private void CartChanged()
         {

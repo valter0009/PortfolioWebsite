@@ -1,6 +1,8 @@
 ﻿using Azure.Communication.Email;
 using PortfolioWebsite.Api.Repositories.Contracts;
 
+namespace PortfolioWebsite.Api.Repositories;
+
 public class EmailRepository : IEmailRepository
 {
     private readonly EmailClient _emailClient;

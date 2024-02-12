@@ -42,12 +42,12 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
             {
                 try
                 {
-
+                    // Always attempt to fetch product details regardless of authentication status
                     Product = await ProductService.GetItem(Id);
 
                     var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
 
-                    if (authState.User.Identity!.IsAuthenticated)
+                    if (authState.User.Identity.IsAuthenticated)
                     {
                         ShoppingCartItems = (List<CartItemDto>)await ManageCartItemsLocalStorageService.GetCollection();
                     }

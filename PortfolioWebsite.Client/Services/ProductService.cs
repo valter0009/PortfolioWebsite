@@ -26,7 +26,7 @@ namespace PortfolioWebsite.Client.Services
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        return default(ProductDto);
+                        return default;
                     }
 
                     return await response.Content.ReadFromJsonAsync<ProductDto>();
@@ -83,7 +83,7 @@ namespace PortfolioWebsite.Client.Services
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        return default(ProductDto);
+                        return default;
                     }
 
                     return await response.Content.ReadFromJsonAsync<ProductDto>();

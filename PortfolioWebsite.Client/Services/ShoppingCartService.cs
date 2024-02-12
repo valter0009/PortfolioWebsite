@@ -34,7 +34,7 @@ namespace PortfolioWebsite.Client.Services
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        return default(CartItemDto);
+                        return default;
                     }
 
                     return await response.Content.ReadFromJsonAsync<CartItemDto>();
@@ -63,7 +63,7 @@ namespace PortfolioWebsite.Client.Services
                     return await response.Content.ReadFromJsonAsync<CartItemDto>();
                 }
 
-                return default(CartItemDto);
+                return default;
             }
             catch (Exception)
             {

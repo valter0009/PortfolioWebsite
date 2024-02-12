@@ -9,16 +9,14 @@ namespace PortfolioWebsite.Api.Repositories
     public class ShoppingCartRepository : IShoppingCartRepository
     {
         private readonly PortfolioWebsiteDbContext _portfolioWebsiteDbContext;
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IAuthRepository _authRepository;
 
         public ShoppingCartRepository(
             PortfolioWebsiteDbContext portfolioWebsiteDbContext,
-            IHttpContextAccessor httpContextAccessor,
             IAuthRepository authRepository)
         {
             this._portfolioWebsiteDbContext = portfolioWebsiteDbContext;
-            this._httpContextAccessor = httpContextAccessor;
+
             this._authRepository = authRepository;
         }
 
