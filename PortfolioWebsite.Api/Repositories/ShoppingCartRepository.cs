@@ -8,70 +8,69 @@ namespace PortfolioWebsite.Api.Repositories
 {
     public class ShoppingCartRepository : IShoppingCartRepository
     {
-        private readonly PortfolioWebsiteDbContext portfolioWebsiteDbContext;
-        private readonly IHttpContextAccessor httpContextAccessor;
-        private readonly IAuthRepository authRepository;
+        private readonly PortfolioWebsiteDbContext _portfolioWebsiteDbContext;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IAuthRepository _authRepository;
+
         public ShoppingCartRepository(
             PortfolioWebsiteDbContext portfolioWebsiteDbContext,
             IHttpContextAccessor httpContextAccessor,
             IAuthRepository authRepository)
         {
-            this.portfolioWebsiteDbContext = portfolioWebsiteDbContext;
-            this.httpContextAccessor = httpContextAccessor;
-            this.authRepository = authRepository;
+            this._portfolioWebsiteDbContext = portfolioWebsiteDbContext;
+            this._httpContextAccessor = httpContextAccessor;
+            this._authRepository = authRepository;
         }
-
 
 
         private async Task<bool> CartItemExists(int productId)
         {
             var userCart = await GetOrCreateCart();
-            return await this.portfolioWebsiteDbContext.CartItems
+            return await this._portfolioWebsiteDbContext.CartItems
                 .AnyAsync(c => c.CartId == userCart.Id && c.ProductId == productId);
         }
 
         public async Task<CartItem> AddItem(CartItemToAddDto cartItemToAddDto)
         {
             var userCart = await GetOrCreateCart();
-            if (await CartItemExists(cartItemToAddDto.ProductId) == false)
-            {
-                var item = await (from product in portfolioWebsiteDbContext.Products
-                                  where product.Id == cartItemToAddDto.ProductId
-                                  select new CartItem
-                                  {
-                                      CartId = userCart.Id,
-                                      ProductId = product.Id,
-                                      Qty = cartItemToAddDto.Qty,
-                                  }).SingleOrDefaultAsync();
-                if (item != null)
-                {
-                    var result = await this.portfolioWebsiteDbContext.CartItems.AddAsync(item);
-                    await this.portfolioWebsiteDbContext.SaveChangesAsync();
 
-                    return result.Entity;
-                }
-            }
+            if (await CartItemExists(cartItemToAddDto.ProductId) != false) return null;
 
-            return null;
+            var item = await (from product in _portfolioWebsiteDbContext.Products
+                              where product.Id == cartItemToAddDto.ProductId
+                              select new CartItem
+                              {
+                                  CartId = userCart.Id,
+                                  ProductId = product.Id,
+                                  Qty = cartItemToAddDto.Qty,
+                              }).SingleOrDefaultAsync();
+
+            if (item == null) return null;
+
+            var result = await this._portfolioWebsiteDbContext.CartItems.AddAsync(item);
+            await this._portfolioWebsiteDbContext.SaveChangesAsync();
+
+            return result.Entity;
         }
 
         public async Task<CartItem> DeleteItem(int id)
         {
-            var item = await portfolioWebsiteDbContext.CartItems.FindAsync(id);
+            var item = await _portfolioWebsiteDbContext.CartItems.FindAsync(id);
 
             if (item != null)
             {
-                portfolioWebsiteDbContext.CartItems.Remove(item);
-                await portfolioWebsiteDbContext.SaveChangesAsync();
+                _portfolioWebsiteDbContext.CartItems.Remove(item);
+                await _portfolioWebsiteDbContext.SaveChangesAsync();
             }
+
             return item;
         }
 
         public async Task<CartItem> GetItem(int id)
         {
-            return await (from cart in this.portfolioWebsiteDbContext.Carts
-                          join cartItem in this.portfolioWebsiteDbContext.CartItems
-                          on cart.Id equals cartItem.CartId
+            return await (from cart in this._portfolioWebsiteDbContext.Carts
+                          join cartItem in this._portfolioWebsiteDbContext.CartItems
+                              on cart.Id equals cartItem.CartId
                           where cartItem.Id == id
                           select new CartItem
                           {
@@ -84,10 +83,10 @@ namespace PortfolioWebsite.Api.Repositories
 
         public async Task<IEnumerable<CartItem>> GetItems()
         {
-            var userId = authRepository.GetUserIdFromClaims();
-            return await (from cart in portfolioWebsiteDbContext.Carts
-                          join cartItem in portfolioWebsiteDbContext.CartItems
-                          on cart.Id equals cartItem.CartId
+            var userId = _authRepository.GetUserIdFromClaims();
+            return await (from cart in _portfolioWebsiteDbContext.Carts
+                          join cartItem in _portfolioWebsiteDbContext.CartItems
+                              on cart.Id equals cartItem.CartId
                           where cart.UserId == userId
                           select new CartItem
                           {
@@ -100,56 +99,58 @@ namespace PortfolioWebsite.Api.Repositories
 
         public async Task<CartItem> UpdateQty(int id, CartItemQtyUpdateDto cartItemQtyUpdate)
         {
-            var item = await portfolioWebsiteDbContext.CartItems.FindAsync(id);
+            var item = await _portfolioWebsiteDbContext.CartItems.FindAsync(id);
             if (item != null)
             {
                 item.Qty = cartItemQtyUpdate.Qty;
-                await portfolioWebsiteDbContext.SaveChangesAsync();
+                await _portfolioWebsiteDbContext.SaveChangesAsync();
                 return item;
             }
+
             return null;
         }
 
 
         public async Task DeleteUserCart(string userId)
         {
-
-            var cart = await portfolioWebsiteDbContext.Carts
-                                .Include(c => c.CartItems)
-                                .FirstOrDefaultAsync(c => c.UserId == userId);
+            var cart = await _portfolioWebsiteDbContext.Carts
+                .Include(c => c.CartItems)
+                .FirstOrDefaultAsync(c => c.UserId == userId);
 
             if (cart != null)
             {
-                portfolioWebsiteDbContext.CartItems.RemoveRange(cart.CartItems);
+                _portfolioWebsiteDbContext.CartItems.RemoveRange(cart.CartItems);
 
-                portfolioWebsiteDbContext.Carts.Remove(cart);
+                _portfolioWebsiteDbContext.Carts.Remove(cart);
 
-                await portfolioWebsiteDbContext.SaveChangesAsync();
+                await _portfolioWebsiteDbContext.SaveChangesAsync();
             }
         }
 
         public async Task<Cart> GetOrCreateCart()
         {
-            var userId = authRepository.GetUserIdFromClaims();
-            var cart = await portfolioWebsiteDbContext.Carts.FirstOrDefaultAsync(c => c.UserId == userId);
+            var userId = _authRepository.GetUserIdFromClaims();
+            var cart = await _portfolioWebsiteDbContext.Carts.FirstOrDefaultAsync(c => c.UserId == userId);
             if (cart == null)
             {
                 cart = new Cart { UserId = userId };
-                portfolioWebsiteDbContext.Carts.Add(cart);
-                await portfolioWebsiteDbContext.SaveChangesAsync();
+                _portfolioWebsiteDbContext.Carts.Add(cart);
+                await _portfolioWebsiteDbContext.SaveChangesAsync();
             }
+
             return cart;
         }
+
         public async Task UpdateProductInventory(string userId)
         {
-            var cartItems = await portfolioWebsiteDbContext.CartItems
-                                .Where(ci => ci.Cart.UserId == userId)
-                                .ToListAsync();
+            var cartItems = await _portfolioWebsiteDbContext.CartItems
+                .Where(ci => ci.Cart.UserId == userId)
+                .ToListAsync();
 
             foreach (var item in cartItems)
             {
-                var product = await portfolioWebsiteDbContext.Products
-                                    .FirstOrDefaultAsync(p => p.Id == item.ProductId);
+                var product = await _portfolioWebsiteDbContext.Products
+                    .FirstOrDefaultAsync(p => p.Id == item.ProductId);
                 if (product != null && product.Qty >= item.Qty)
                 {
                     product.Qty -= item.Qty;
@@ -161,15 +162,13 @@ namespace PortfolioWebsite.Api.Repositories
                 }
             }
 
-            await portfolioWebsiteDbContext.SaveChangesAsync();
+            await _portfolioWebsiteDbContext.SaveChangesAsync();
         }
+
         public async Task OnSuccessfulOrder(string userId)
         {
-
             await UpdateProductInventory(userId);
             await DeleteUserCart(userId);
         }
-
-
     }
 }

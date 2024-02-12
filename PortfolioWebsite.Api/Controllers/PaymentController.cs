@@ -9,13 +9,13 @@ namespace PortfolioWebsite.Api.Controllers
 
     public class PaymentController : ControllerBase
     {
-        private readonly IPaymentRepository paymentRepository;
+        private readonly IPaymentRepository _paymentRepository;
         private readonly string _stripeEndpointSecret;
 
 
         public PaymentController(IPaymentRepository paymentRepository, IConfiguration configuration)
         {
-            this.paymentRepository = paymentRepository;
+            this._paymentRepository = paymentRepository;
 
             _stripeEndpointSecret = configuration["StripeEndpoindScrt"];
         }
@@ -25,7 +25,7 @@ namespace PortfolioWebsite.Api.Controllers
 
         public ActionResult CreateCheckoutSessions(List<CartItemDto> cartItems)
         {
-            var url = paymentRepository.CreateCheckoutSession(cartItems);
+            var url = _paymentRepository.CreateCheckoutSession(cartItems);
             return Ok(url);
         }
 
@@ -35,7 +35,7 @@ namespace PortfolioWebsite.Api.Controllers
         {
             try
             {
-                await paymentRepository.FulfillOrder(Request);
+                await _paymentRepository.FulfillOrder(Request);
 
                 return Ok();
             }
@@ -44,9 +44,6 @@ namespace PortfolioWebsite.Api.Controllers
                 return BadRequest();
             }
         }
-
-
-
     }
 }
 

@@ -8,19 +8,21 @@ namespace PortfolioWebsite.Client.Services
 {
     public class ShoppingCartService : IShoppingCartService
     {
-        private readonly IHttpClientFactory httpClient;
+        private readonly IHttpClientFactory _httpClient;
 
         public event Action<int> OnShoppingCartChanged;
 
 
         public ShoppingCartService(IHttpClientFactory httpClient)
         {
-            this.httpClient = httpClient;
+            this._httpClient = httpClient;
         }
+
         private HttpClient GetClient(bool requiresAuth = false)
         {
-            return httpClient.CreateClient(requiresAuth ? "AuthorizedClient" : "AnonymousClient");
+            return _httpClient.CreateClient(requiresAuth ? "AuthorizedClient" : "AnonymousClient");
         }
+
         public async Task<CartItemDto> AddItem(CartItemToAddDto cartItemToAddDto)
         {
             var httpClient = GetClient(true);
@@ -36,18 +38,15 @@ namespace PortfolioWebsite.Client.Services
                     }
 
                     return await response.Content.ReadFromJsonAsync<CartItemDto>();
-
                 }
                 else
                 {
                     var message = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Http status:{response.StatusCode} Message -{message}");
                 }
-
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -63,11 +62,11 @@ namespace PortfolioWebsite.Client.Services
                 {
                     return await response.Content.ReadFromJsonAsync<CartItemDto>();
                 }
+
                 return default(CartItemDto);
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -85,6 +84,7 @@ namespace PortfolioWebsite.Client.Services
                     {
                         return Enumerable.Empty<CartItemDto>().ToList();
                     }
+
                     return await response.Content.ReadFromJsonAsync<List<CartItemDto>>();
                 }
                 else
@@ -92,11 +92,9 @@ namespace PortfolioWebsite.Client.Services
                     var message = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Http status code: {response.StatusCode} Message: {message}");
                 }
-
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -126,18 +124,19 @@ namespace PortfolioWebsite.Client.Services
                 var jsonRequest = JsonConvert.SerializeObject(cartItemQtyUpdateDto);
                 var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json-patch+json");
 
-                var response = await httpClient.PatchAsync($"api/ShoppingCart/{cartItemQtyUpdateDto.CartItemId}", content);
+                var response =
+                    await httpClient.PatchAsync($"api/ShoppingCart/{cartItemQtyUpdateDto.CartItemId}", content);
 
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadFromJsonAsync<CartItemDto>();
                 }
-                return null;
 
+                return null;
             }
             catch (Exception)
             {
-                //Log exception
+
                 throw;
             }
         }
@@ -149,8 +148,8 @@ namespace PortfolioWebsite.Client.Services
 
             if (response.IsSuccessStatusCode)
             {
-
-                return response.StatusCode == System.Net.HttpStatusCode.NoContent || response.StatusCode == System.Net.HttpStatusCode.OK;
+                return response.StatusCode == System.Net.HttpStatusCode.NoContent ||
+                       response.StatusCode == System.Net.HttpStatusCode.OK;
             }
             else
             {
@@ -162,11 +161,8 @@ namespace PortfolioWebsite.Client.Services
 
         public async Task<int> GetItemsCount()
         {
-
             var shoppingCartItems = await this.GetItems();
             return shoppingCartItems.Sum(item => item.Qty);
         }
-
     }
 }
-

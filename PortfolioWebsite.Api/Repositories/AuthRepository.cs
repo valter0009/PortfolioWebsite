@@ -9,24 +9,26 @@ namespace PortfolioWebsite.Api.Repositories
     public class AuthRepository : IAuthRepository
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly PortfolioWebsiteDbContext portfolioWebsiteDbContext;
+        private readonly PortfolioWebsiteDbContext _portfolioWebsiteDbContext;
 
-        public AuthRepository(IHttpContextAccessor httpContextAccessor, PortfolioWebsiteDbContext portfolioWebsiteDbContext)
+        public AuthRepository(IHttpContextAccessor httpContextAccessor,
+            PortfolioWebsiteDbContext portfolioWebsiteDbContext)
         {
-
             _httpContextAccessor = httpContextAccessor;
-            this.portfolioWebsiteDbContext = portfolioWebsiteDbContext;
+            this._portfolioWebsiteDbContext = portfolioWebsiteDbContext;
         }
 
-        public string GetUserIdFromClaims() => _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        public string GetUserIdFromClaims() =>
+            _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        public string GetUserEmailFromClaims() => _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Email);
+        public string GetUserEmailFromClaims() =>
+            _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Email);
 
         public Task<User> GetUserById(string userId)
         {
             if (userId != null)
             {
-                var user = portfolioWebsiteDbContext.Users.SingleOrDefaultAsync(u => u.Id.Equals(userId));
+                var user = _portfolioWebsiteDbContext.Users.SingleOrDefaultAsync(u => u.Id.Equals(userId));
                 return user;
             }
 
@@ -37,12 +39,13 @@ namespace PortfolioWebsite.Api.Repositories
         {
             if (userEmail != null)
             {
-                var user = portfolioWebsiteDbContext.Users.SingleOrDefaultAsync(u => u.Email.Equals(userEmail));
+                var user = _portfolioWebsiteDbContext.Users.SingleOrDefaultAsync(u => u.Email.Equals(userEmail));
                 return user;
             }
 
             return null;
         }
+
         public async Task<User> CreateUser()
         {
             try
@@ -65,18 +68,14 @@ namespace PortfolioWebsite.Api.Repositories
                     Email = userEmail
                 };
 
-                await portfolioWebsiteDbContext.Users.AddAsync(user);
-                await portfolioWebsiteDbContext.SaveChangesAsync();
+                await _portfolioWebsiteDbContext.Users.AddAsync(user);
+                await _portfolioWebsiteDbContext.SaveChangesAsync();
                 return user;
             }
             catch (Exception)
             {
-
                 throw;
             }
-
         }
-
-
     }
 }

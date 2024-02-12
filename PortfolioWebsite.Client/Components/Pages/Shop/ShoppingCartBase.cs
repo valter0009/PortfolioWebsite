@@ -9,25 +9,16 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
 {
     public class ShoppingCartBase : ComponentBase
     {
+        [Inject] public IJSRuntime Js { get; set; }
 
-        [Inject]
-        public IJSRuntime Js { get; set; }
-
-        [Inject]
-        NavigationManager NavManager { get; set; }
+        [Inject] NavigationManager NavManager { get; set; }
 
 
+        [Inject] public IShoppingCartService ShoppingCartService { get; set; }
 
+        [Inject] public IProductService ProductService { get; set; }
 
-        [Inject]
-        public IShoppingCartService ShoppingCartService { get; set; }
-
-        [Inject]
-        public IProductService ProductService { get; set; }
-
-        [Inject]
-        public IManageCartItemsLocalStorageService ManageCartItemsLocalStorageService { get; set; }
-
+        [Inject] public IManageCartItemsLocalStorageService ManageCartItemsLocalStorageService { get; set; }
 
 
         public List<CartItemDto> ShoppingCartItems { get; set; }
@@ -38,7 +29,6 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
         protected int TotalQuantity { get; set; }
 
         private bool firstRenderCompleted = false;
-
 
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -55,6 +45,7 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
                         var productDetails = await ProductService.GetItem(item.ProductId);
                         item.AvailableQuantity = productDetails.Qty;
                     }
+
                     CartChanged();
                 }
                 catch (Exception ex)
@@ -78,10 +69,7 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
             {
                 ErrorMessage = ex.Message;
             }
-
-
         }
-
 
 
         protected async Task UpdateQtyCartItem_Click(int id, int qty)
@@ -109,11 +97,9 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
                         item.TotalPrice = item.Price;
                     }
                 }
-
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -127,6 +113,7 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
         {
             await Js.InvokeVoidAsync("MakeUpdateQtyButtonVisible", id, visible);
         }
+
         private async Task UpdateItemTotalPrice(CartItemDto cartItemDto)
         {
             var item = GetCartItem(cartItemDto.Id);
@@ -134,25 +121,31 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
             {
                 item.TotalPrice = cartItemDto.Price * cartItemDto.Qty;
             }
+
             await ManageCartItemsLocalStorageService.SaveCollection(ShoppingCartItems);
         }
+
         private void CalculateCartSummaryTotals()
         {
             SetTotalPrice();
             SetTotalQuantity();
         }
+
         private void SetTotalPrice()
         {
             TotalPrice = ShoppingCartItems.Sum(x => x.TotalPrice).ToString("C", new CultureInfo("en-US"));
         }
+
         private void SetTotalQuantity()
         {
             TotalQuantity = ShoppingCartItems.Sum(x => x.Qty);
         }
+
         private CartItemDto GetCartItem(int id)
         {
             return ShoppingCartItems.FirstOrDefault(x => x.Id == id);
         }
+
         private async Task RemoveCartItem(int id)
         {
             var cartItemDto = GetCartItem(id);
@@ -184,6 +177,7 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
                     ErrorMessage = "Your cart is empty";
                     return;
                 }
+
                 var url = await ShoppingCartService.Checkout(ShoppingCartItems);
 
                 NavManager.NavigateTo(url);
@@ -195,6 +189,5 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
                 ErrorMessage = ex.Message;
             }
         }
-
     }
 }

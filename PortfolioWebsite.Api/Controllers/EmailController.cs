@@ -8,17 +8,17 @@ namespace PortfolioWebsite.Api.Controllers
     [Route("api/[controller]")]
     public class EmailController : ControllerBase
     {
-        private readonly IEmailRepository emailRepository;
+        private readonly IEmailRepository _emailRepository;
 
         public EmailController(IEmailRepository emailRepository)
         {
-            this.emailRepository = emailRepository;
+            this._emailRepository = emailRepository;
         }
 
         [HttpPost("send")]
         public async Task<IActionResult> SendEmailAsync([FromBody] EmailRequest emailRequest)
         {
-            await emailRepository.SendEmailAsync(emailRequest.Subject, emailRequest.Message);
+            await _emailRepository.SendEmailAsync(emailRequest.Subject, emailRequest.Message);
             return Ok();
         }
     }

@@ -33,7 +33,7 @@
 @code {
     private async Task BeginLogOut(MouseEventArgs args)
     {
-        ManageCartItemsLocalStorageService.RemoveCollection();
+        await ManageCartItemsLocalStorageService.RemoveCollection();
         await SignOutManager.SetSignOutState();
         Navigation.NavigateTo("authentication/logout");
     }

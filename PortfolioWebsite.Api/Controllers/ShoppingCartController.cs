@@ -13,8 +13,8 @@ namespace PortfolioWebsite.Api.Controllers
         IShoppingCartRepository shoppingCartRepository,
         IProductRepository productRepository) : ControllerBase
     {
-        private readonly IShoppingCartRepository shoppingCartRepository = shoppingCartRepository;
-        private readonly IProductRepository productRepository = productRepository;
+        private readonly IShoppingCartRepository _shoppingCartRepository = shoppingCartRepository;
+        private readonly IProductRepository _productRepository = productRepository;
 
         [HttpGet]
         [Route("GetItems")]
@@ -23,14 +23,14 @@ namespace PortfolioWebsite.Api.Controllers
         {
             try
             {
-                var cartItems = await shoppingCartRepository.GetItems();
+                var cartItems = await _shoppingCartRepository.GetItems();
 
                 if (cartItems == null)
                 {
                     return NoContent();
                 }
 
-                var products = await productRepository.GetItems() ?? throw new Exception("No products exist in the system");
+                var products = await _productRepository.GetItems() ?? throw new Exception("No products exist in the system");
                 var cartItemsDto = cartItems.ConvertToDto(products);
 
                 return Ok(cartItemsDto);
@@ -47,12 +47,12 @@ namespace PortfolioWebsite.Api.Controllers
         {
             try
             {
-                var cartItem = await this.shoppingCartRepository.GetItem(id);
+                var cartItem = await this._shoppingCartRepository.GetItem(id);
                 if (cartItem == null)
                 {
                     return NotFound();
                 }
-                var product = await productRepository.GetItem(cartItem.ProductId);
+                var product = await _productRepository.GetItem(cartItem.ProductId);
 
                 if (product == null)
                 {
@@ -74,14 +74,14 @@ namespace PortfolioWebsite.Api.Controllers
         {
             try
             {
-                var newCartItem = await this.shoppingCartRepository.AddItem(cartItemToAddDto);
+                var newCartItem = await this._shoppingCartRepository.AddItem(cartItemToAddDto);
 
                 if (newCartItem == null)
                 {
                     return NoContent();
                 }
 
-                var product = await productRepository.GetItem(newCartItem.ProductId) ?? throw new Exception(
+                var product = await _productRepository.GetItem(newCartItem.ProductId) ?? throw new Exception(
                         $"Something went wrong when attempting to retrieve product (productId:({cartItemToAddDto.ProductId})");
                 var newCartItemDto = newCartItem.ConvertToDto(product);
 
@@ -98,12 +98,12 @@ namespace PortfolioWebsite.Api.Controllers
         {
             try
             {
-                var cartItem = await shoppingCartRepository.DeleteItem(id);
+                var cartItem = await _shoppingCartRepository.DeleteItem(id);
                 if (cartItem == null)
                 {
                     return NotFound();
                 }
-                var product = await productRepository.GetItem(cartItem.ProductId);
+                var product = await _productRepository.GetItem(cartItem.ProductId);
                 if (product == null)
                 {
                     return NotFound();
@@ -127,12 +127,12 @@ namespace PortfolioWebsite.Api.Controllers
         {
             try
             {
-                var cartItem = await shoppingCartRepository.UpdateQty(id, cartItemQtyUpdateDto);
+                var cartItem = await _shoppingCartRepository.UpdateQty(id, cartItemQtyUpdateDto);
                 if (cartItem == null)
                 {
                     return NotFound();
                 }
-                var product = await productRepository.GetItem(cartItem.ProductId);
+                var product = await _productRepository.GetItem(cartItem.ProductId);
 
                 var cartItemDto = cartItem.ConvertToDto(product);
                 return Ok(cartItemDto);

@@ -12,9 +12,9 @@ namespace PortfolioWebsite.Api.Extensions
                     {
                         Id = productCategory.Id,
                         Name = productCategory.Name,
-
                     }).ToList();
         }
+
         public static IEnumerable<ProductDto> ConvertToDto(
             this IEnumerable<Product> products)
         {
@@ -31,7 +31,6 @@ namespace PortfolioWebsite.Api.Extensions
                         CategoryName = product.ProductCategory.Name
                     })
                 .ToList();
-
         }
 
         public static ProductDto ConvertToDto(
@@ -50,11 +49,12 @@ namespace PortfolioWebsite.Api.Extensions
             };
         }
 
-        public static IEnumerable<CartItemDto> ConvertToDto(this IEnumerable<CartItem> cartItems, IEnumerable<Product> products)
+        public static IEnumerable<CartItemDto> ConvertToDto(this IEnumerable<CartItem> cartItems,
+            IEnumerable<Product> products)
         {
             return (from cartItem in cartItems
                     join product in products
-                    on cartItem.ProductId equals product.Id
+                        on cartItem.ProductId equals product.Id
                     select new CartItemDto
                     {
                         Id = cartItem.Id,

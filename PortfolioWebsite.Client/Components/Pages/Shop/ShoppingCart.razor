@@ -4,76 +4,75 @@
 
 @if (ShoppingCartItems == null && ErrorMessage == null)
 {
-    <DisplaySpinner></DisplaySpinner>
+	<DisplaySpinner></DisplaySpinner>
 }
 else if (ErrorMessage != null)
 {
-    <DisplayError ErrorMessage ="@ErrorMessage"></DisplayError>
+	<DisplayError ErrorMessage="@ErrorMessage"></DisplayError>
 }
 else
 {
-    
-    @if(ShoppingCartItems.Count() > 0)
-    {
-      <div class = "row mb-5">
-        <div class ="col-md-9">
-            @foreach(var item in ShoppingCartItems)
-            {
-                <div class="row mb-4">
-                    <div class="col-md-4">
-                        <img src="@item.ProductImageURL" width="300" class="img-thumbnail">
-                    </div>
-                    <div class = "col-md-8">
-                        <h5>@item.ProductName</h5>
-                        <div class="mb-4">@item.ProductDescription</div>
-                        <span>
-                                Price: <b>@item.Price.ToString("C", new CultureInfo("en-US"))</b>
-                                <input type="number" value="@item.Qty" min="1" max="@item.AvailableQuantity" @oninput="@(e => UpdateQtyCartItem(item.Id, e))" />
-                            <button data-itemId="@item.Id" class="d-none"
-                                @onclick="(() => UpdateQtyCartItem_Click(item.Id, item.Qty))"
-                            ></button>
-                        </span>
-                        <div>
-                            <button  @onclick ="(() => DeleteCartItem_Click(item.Id))"
-                                        class="btn  sm">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                        </div>
-                    </div>
+	@if (ShoppingCartItems.Count() > 0)
+	{
+		<div class="row mb-5">
+			<div class="col-md-9">
+				@foreach (var item in ShoppingCartItems)
+				{
+					<div class="row mb-4">
+						<div class="col-md-4">
+							<img src="@item.ProductImageURL" width="300" class="img-thumbnail">
+						</div>
+						<div class="col-md-8">
+							<h5>@item.ProductName</h5>
+							<div class="mb-4">@item.ProductDescription</div>
+							<span>
+								Price: <b>@item.Price.ToString("C", new CultureInfo("en-US"))</b>
+								<input type="number" value="@item.Qty" min="1" max="@item.AvailableQuantity" @oninput="@(e => UpdateQtyCartItem(item.Id, e))"/>
+								<button data-itemId="@item.Id" class="d-none"
+								        @onclick="(() => UpdateQtyCartItem_Click(item.Id, item.Qty))">
+								</button>
+							</span>
+							<div>
+								<button @onclick="(() => DeleteCartItem_Click(item.Id))"
+								        class="btn  sm">
+									<i class="fa fa-trash"></i>
+								</button>
+							</div>
+						</div>
 
-                </div>
-            }
-        </div>
-        <div class="col-md-3">
-            <h5>Cart Summary</h5>
-            <div class="mt-2">
-                    <div>Total - (@TotalQuantity items)&nbsp;<b>@TotalPrice</b></div>
-                    <button class="alterbtn alterbtn-secondary mt-3" @onclick="async () => await Checkout_Click()">Proceed to checkout</button>
-            </div>
-        </div>
-        </div>
-    }
-    else
-    {
-        <h4 class="text-center">There are currently no items in your shopping cart</h4>
-    }
-
+					</div>
+				}
+			</div>
+			<div class="col-md-3">
+				<h5>Cart Summary</h5>
+				<div class="mt-2">
+					<div>Total - (@TotalQuantity items)&nbsp;<b>@TotalPrice</b></div>
+					<button class="alterbtn alterbtn-secondary mt-3" @onclick="async () => await Checkout_Click()">Proceed to checkout</button>
+				</div>
+			</div>
+		</div>
+	}
+	else
+	{
+		<h4 class="text-center">There are currently no items in your shopping cart</h4>
+	}
 }
 
 @code {
 
 
-    protected async Task UpdateQtyCartItem(int id, ChangeEventArgs e)
-    {
-        if (int.TryParse(e.Value?.ToString(), out int newQty))
-        {
-            var item = ShoppingCartItems.FirstOrDefault(i => i.Id == id);
-            if (item != null && item.Qty != newQty)
-            {
-                item.Qty = newQty;
-                await UpdateQty_Input(item.Id);
-                await UpdateQtyCartItem_Click(item.Id, item.Qty);
-            }
-        }
-    }
-    }
+	protected async Task UpdateQtyCartItem(int id, ChangeEventArgs e)
+	{
+		if (int.TryParse(e.Value?.ToString(), out int newQty))
+		{
+			var item = ShoppingCartItems.FirstOrDefault(i => i.Id == id);
+			if (item != null && item.Qty != newQty)
+			{
+				item.Qty = newQty;
+				await UpdateQty_Input(item.Id);
+				await UpdateQtyCartItem_Click(item.Id, item.Qty);
+			}
+		}
+	}
+
+}

@@ -1,7 +1,7 @@
 ﻿@using PortfolioWebsite.Client.Services.Contracts
 @using PortfolioWebsite.Models.DTOs
 @implements IDisposable
-@inject IShoppingCartService shoppingCartService
+@inject IShoppingCartService ShoppingCartService
 
 
 <div class="d-flex flex-row nav-item-container-width ">
@@ -19,8 +19,8 @@
 
     protected override async Task OnInitializedAsync()
     {
-        shoppingCartItemCount = await shoppingCartService.GetItemsCount();
-        shoppingCartService.OnShoppingCartChanged += ShoppingCartChanged;
+        shoppingCartItemCount = await ShoppingCartService.GetItemsCount();
+        ShoppingCartService.OnShoppingCartChanged += ShoppingCartChanged;
         
 
         
@@ -34,7 +34,7 @@
 
     void IDisposable.Dispose()
     {
-        shoppingCartService.OnShoppingCartChanged -= ShoppingCartChanged;
+        ShoppingCartService.OnShoppingCartChanged -= ShoppingCartChanged;
     }
 
    

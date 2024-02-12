@@ -11,14 +11,14 @@ namespace PortfolioWebsite.Api.Controllers
 
     public class ProductController(IProductRepository productRepository) : ControllerBase
     {
-        private readonly IProductRepository productRepository = productRepository;
+        private readonly IProductRepository _productRepository = productRepository;
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetItems()
         {
             try
             {
-                var products = await this.productRepository.GetItems();
+                var products = await this._productRepository.GetItems();
 
 
                 if (products == null)
@@ -33,7 +33,6 @@ namespace PortfolioWebsite.Api.Controllers
             }
             catch (Exception)
             {
-
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data from the database");
             }
         }
@@ -43,7 +42,7 @@ namespace PortfolioWebsite.Api.Controllers
         {
             try
             {
-                var product = await this.productRepository.GetItem(id);
+                var product = await this._productRepository.GetItem(id);
 
 
                 if (product == null)
@@ -52,14 +51,12 @@ namespace PortfolioWebsite.Api.Controllers
                 }
                 else
                 {
-
                     var productDto = product.ConvertToDto();
                     return Ok(productDto);
                 }
             }
             catch (Exception)
             {
-
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data from the database");
             }
         }
@@ -70,19 +67,16 @@ namespace PortfolioWebsite.Api.Controllers
         {
             try
             {
-                var productCategories = await productRepository.GetCategories();
+                var productCategories = await _productRepository.GetCategories();
 
                 var productCategoryDtos = productCategories.ConvertToDto();
 
                 return Ok(productCategoryDtos);
-
             }
             catch (Exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                                "Error retrieving data from the database");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data from the database");
             }
-
         }
 
         [HttpGet]
@@ -91,17 +85,15 @@ namespace PortfolioWebsite.Api.Controllers
         {
             try
             {
-                var products = await productRepository.GetItemsByCategory(categoryId);
+                var products = await _productRepository.GetItemsByCategory(categoryId);
 
                 var productDtos = products.ConvertToDto();
 
                 return Ok(productDtos);
-
             }
             catch (Exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                                "Error retrieving data from the database");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data from the database");
             }
         }
 
@@ -111,7 +103,7 @@ namespace PortfolioWebsite.Api.Controllers
         {
             try
             {
-                var product = await productRepository.DeleteItem(id);
+                var product = await _productRepository.DeleteItem(id);
                 if (product == null)
                 {
                     return NotFound();
@@ -126,7 +118,5 @@ namespace PortfolioWebsite.Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-
-
     }
 }

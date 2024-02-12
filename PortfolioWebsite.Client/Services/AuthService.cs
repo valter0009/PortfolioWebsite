@@ -22,7 +22,7 @@ namespace PortfolioWebsite.Client.Services
         {
             var httpClient = GetClient(true);
             var authState = await _authenticationStateProvider.GetAuthenticationStateAsync();
-            if (authState.User.Identity.IsAuthenticated)
+            if (authState.User.Identity!.IsAuthenticated)
             {
                 var content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
                 await httpClient.PostAsync("api/auth/createUser", content);

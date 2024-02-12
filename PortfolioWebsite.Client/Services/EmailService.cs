@@ -5,15 +5,15 @@ namespace PortfolioWebsite.Client.Services
 {
     public class EmailService : IEmailService
     {
-        private readonly IHttpClientFactory httpClient;
+        private readonly IHttpClientFactory _httpClient;
 
         public EmailService(IHttpClientFactory httpClient)
         {
-            this.httpClient = httpClient;
+            this._httpClient = httpClient;
         }
         private HttpClient GetClient(bool requiresAuth = false)
         {
-            return httpClient.CreateClient(requiresAuth ? "AuthorizedClient" : "AnonymousClient");
+            return _httpClient.CreateClient(requiresAuth ? "AuthorizedClient" : "AnonymousClient");
         }
         public async Task SendEmailAsync(string subject, string message)
         {

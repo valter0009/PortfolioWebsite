@@ -25,7 +25,7 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
 
         public IEnumerable<ProductDto> Products;
 
-        private bool firstRenderCompleted = false;
+
 
 
 

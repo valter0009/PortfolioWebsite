@@ -9,26 +9,19 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
 {
     public class ProductDetailsBase : ComponentBase
     {
-        [Parameter]
-        public int Id { get; set; }
+        [Parameter] public int Id { get; set; }
 
-        [Inject]
-        public IProductService ProductService { get; set; }
+        [Inject] public IProductService ProductService { get; set; }
 
-        [Inject]
-        public IShoppingCartService ShoppingCartService { get; set; }
+        [Inject] public IShoppingCartService ShoppingCartService { get; set; }
 
-        [Inject]
-        public NavigationManager NavigationManager { get; set; }
+        [Inject] public NavigationManager NavigationManager { get; set; }
 
-        [Inject]
-        public IManageCartItemsLocalStorageService ManageCartItemsLocalStorageService { get; set; }
+        [Inject] public IManageCartItemsLocalStorageService ManageCartItemsLocalStorageService { get; set; }
 
-        [Inject]
-        public IManageProductsLocalStorageService ManageProductsLocalStorageService { get; set; }
+        [Inject] public IManageProductsLocalStorageService ManageProductsLocalStorageService { get; set; }
 
-        [Inject]
-        public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+        [Inject] public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
         [Inject]
         IOptionsSnapshot<RemoteAuthenticationOptions<ApiAuthorizationProviderOptions>> OptionsSnapshot { get; set; }
@@ -40,7 +33,6 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
         private List<CartItemDto> ShoppingCartItems { get; set; }
 
 
-        private bool firstRenderCompleted = false;
 
 
 
@@ -50,12 +42,12 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
             {
                 try
                 {
-                    // Always attempt to fetch product details regardless of authentication status
+
                     Product = await ProductService.GetItem(Id);
 
                     var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
 
-                    if (authState.User.Identity.IsAuthenticated)
+                    if (authState.User.Identity!.IsAuthenticated)
                     {
                         ShoppingCartItems = (List<CartItemDto>)await ManageCartItemsLocalStorageService.GetCollection();
                     }
@@ -98,6 +90,7 @@ namespace PortfolioWebsite.Client.Components.Pages.Shop
             {
                 return productsDtos.SingleOrDefault(x => x.Id == id);
             }
+
             return null;
         }
 
