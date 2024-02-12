@@ -5,14 +5,22 @@
 
         const collapseMenu = () => {
             if (navbarCollapse.classList.contains('show')) {
-                toggler.click(); // Simulate a click to collapse the navbar
+                toggler.click();
             }
         };
 
-        const toggleRotation = () => {
-            toggler.classList.toggle('rotate');
-            toggler.classList.toggle('rotate-back');
-        };
+        toggler.addEventListener('click', function (event) {
+            event.stopPropagation();
+
+            if (this.classList.contains('rotate')) {
+                this.classList.remove('rotate');
+                this.classList.add('rotate-back');
+            } else {
+                this.classList.remove('rotate-back');
+                this.classList.add('rotate');
+            }
+        });
+
 
         const isClickInsideNav = (event) => {
             return toggler.contains(event.target) || navbarCollapse.contains(event.target);
@@ -24,24 +32,18 @@
             });
         };
 
-        // Toggle the menu and rotation on toggler click
-        toggler.addEventListener('click', (event) => {
-            event.stopPropagation(); // Prevent bubbling up
-            toggleRotation();
-        });
 
-        // Collapse the menu on click outside
         document.addEventListener('click', (event) => {
             if (!isClickInsideNav(event)) {
                 collapseMenu();
             }
         });
 
-        // Collapse the menu when a navbar or cart menu link is clicked
+
 
         addClickListener('.click-collapse', collapseMenu);
     };
 
-    window.toggleHamburger = toggleHamburger; // Expose to global scope if needed
-    toggleHamburger(); // Initialize the functionality
+    window.toggleHamburger = toggleHamburger;
+    toggleHamburger();
 });
