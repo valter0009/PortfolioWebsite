@@ -19,7 +19,7 @@ Log.Logger = new LoggerConfiguration()
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-
+//Using httpclient to make requests to the server, utilizing httpclientfactory to create authorized and unauthorized clients
 builder.Services.AddHttpClient("AnonymousClient",
     client => { client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress); });
 
@@ -35,7 +35,7 @@ builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
-
+// Add Auth0 authentication
 builder.Services.AddOidcAuthentication(options =>
 {
     builder.Configuration.Bind("Auth0", options.ProviderOptions);

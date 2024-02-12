@@ -54,6 +54,7 @@
 
 
 @code {
+    //Subscribe to the AuthenticationStateChanged event to know when the user logs in and create a user in the database
     protected override void OnInitialized()
     {
         AuthenticationStateProvider.AuthenticationStateChanged += AuthenticationStateChanged;

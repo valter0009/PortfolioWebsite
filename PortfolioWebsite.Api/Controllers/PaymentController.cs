@@ -20,7 +20,7 @@ namespace PortfolioWebsite.Api.Controllers
 
         }
 
-
+        //Create Checkout Session in Stripe
         [HttpPost("checkout")]
 
         public ActionResult CreateCheckoutSessions(List<CartItemDto> cartItems)

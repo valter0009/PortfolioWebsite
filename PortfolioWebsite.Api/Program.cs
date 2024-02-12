@@ -14,7 +14,7 @@ using Serilog;
 var builder = WebApplication.CreateBuilder(args);
 
 
-// Add services to the container.
+
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel
     .Information()
@@ -24,12 +24,11 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 
-
+// Configure JWT authentication with Auth0
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, c =>
     {
@@ -41,7 +40,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-
+// Configure KeyVault and database connection getting secrets from KeyVault
 if (builder.Environment.IsDevelopment() || builder.Environment.IsProduction())
 {
     var keyVaultURL = builder.Configuration.GetSection("KeyVault:KeyVaultURL");

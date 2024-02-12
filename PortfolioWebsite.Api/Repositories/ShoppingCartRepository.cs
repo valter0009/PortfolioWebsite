@@ -64,7 +64,7 @@ namespace PortfolioWebsite.Api.Repositories
             return item;
         }
 
-        public async Task<CartItem> GetItem(int id)
+        public async Task<CartItem?> GetItem(int id)
         {
             return await (from cart in this._portfolioWebsiteDbContext.Carts
                           join cartItem in this._portfolioWebsiteDbContext.CartItems

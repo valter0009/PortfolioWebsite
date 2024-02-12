@@ -14,7 +14,7 @@ namespace PortfolioWebsite.Api.Repositories.Contracts
         Task DeleteUserCart(string userId);
 
         Task OnSuccessfulOrder(string userId);
-        Task<CartItem> GetItem(int id);
+        Task<CartItem?> GetItem(int id);
         Task<Cart> GetOrCreateCart();
         Task<IEnumerable<CartItem>> GetItems();
 

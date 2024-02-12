@@ -17,6 +17,7 @@
     private int shoppingCartItemCount = 0;
     private List<CartItemDto> shoppingCartItems;
 
+    //Subscribe to the OnShoppingCartChanged event to know when the shopping cart changes
     protected override async Task OnInitializedAsync()
     {
         shoppingCartItemCount = await ShoppingCartService.GetItemsCount();

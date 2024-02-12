@@ -26,7 +26,7 @@ namespace PortfolioWebsite.Api.Repositories
             this._shoppingCartRepository = shoppingCartRepository;
             this._authRepository = authRepository;
         }
-
+        //Using webhook to listen for checkout session completed event and fulfilling order
         public async Task FulfillOrder(HttpRequest request)
         {
             var json = await new StreamReader(request.Body).ReadToEndAsync();
