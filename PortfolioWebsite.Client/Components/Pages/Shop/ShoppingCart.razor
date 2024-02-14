@@ -66,11 +66,16 @@ else
 		if (int.TryParse(e.Value?.ToString(), out int newQty))
 		{
 			var item = ShoppingCartItems.FirstOrDefault(i => i.Id == id);
-			if (item != null && item.Qty != newQty)
-			{
-				item.Qty = newQty;
-				await UpdateQty_Input(item.Id);
-				await UpdateQtyCartItem_Click(item.Id, item.Qty);
+			if (item != null)
+			{				
+				newQty = Math.Clamp(newQty, 1, item.AvailableQuantity);
+
+				if (item.Qty != newQty)
+				{
+					item.Qty = newQty;
+					await UpdateQty_Input(item.Id); 
+					await UpdateQtyCartItem_Click(item.Id, item.Qty); 
+				}
 			}
 		}
 	}

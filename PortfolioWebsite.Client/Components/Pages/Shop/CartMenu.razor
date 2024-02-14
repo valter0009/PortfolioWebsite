@@ -2,7 +2,7 @@
 @using PortfolioWebsite.Models.DTOs
 @implements IDisposable
 @inject IShoppingCartService ShoppingCartService
-
+@inject IJsInteropService JsInteropService
 
 <div class="d-flex flex-row nav-item-container-width ">
     <a href="ShoppingCart" class="btn mt-1 nav-item-container-fix cart-menu">
@@ -17,7 +17,6 @@
     private int shoppingCartItemCount = 0;
     private List<CartItemDto> shoppingCartItems;
 
-    //Subscribe to the OnShoppingCartChanged event to know when the shopping cart changes
     protected override async Task OnInitializedAsync()
     {
         shoppingCartItemCount = await ShoppingCartService.GetItemsCount();
@@ -38,6 +37,13 @@
         ShoppingCartService.OnShoppingCartChanged -= ShoppingCartChanged;
     }
 
-   
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+	    if (firstRender)
+	    {
+		    await Task.Delay(500); 
+		    await JsInteropService.ToggleHamburger();
+	    }
+    }
 
 }

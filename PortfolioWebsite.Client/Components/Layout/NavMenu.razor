@@ -1,6 +1,6 @@
 ﻿@using PortfolioWebsite.Client.Components.Pages.Shop
 @using PortfolioWebsite.Client.Services.Contracts
-@inject IJSRuntime JSRuntime
+@inject IJsInteropService JsInteropService
 @inject IAuthService AuthService
 @inject AuthenticationStateProvider AuthenticationStateProvider
 <nav class="navbar navbar-expand-lg bg-body-tertiary px-4 sticky-top gothic-font" id="navbar">
@@ -54,7 +54,8 @@
 
 
 @code {
-    //Subscribe to the AuthenticationStateChanged event to know when the user logs in and create a user in the database
+
+
     protected override void OnInitialized()
     {
         AuthenticationStateProvider.AuthenticationStateChanged += AuthenticationStateChanged;
@@ -83,8 +84,8 @@
     {
         if (firstRender)
         {
-
-            await JSRuntime.InvokeVoidAsync("toggleHamburger");
+	        await Task.Delay(500); 
+	        await JsInteropService.ToggleHamburger();
         }
     }
 }
