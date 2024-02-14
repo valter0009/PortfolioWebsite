@@ -1,12 +1,3 @@
-using Blazored.LocalStorage;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using PortfolioWebsite.Client;
-using PortfolioWebsite.Client.Services;
-using PortfolioWebsite.Client.Services.Contracts;
-using Serilog;
-
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
 
@@ -34,6 +25,7 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IJsInteropService, JsInteropService>();
 
 // Add Auth0 authentication
 builder.Services.AddOidcAuthentication(options =>
