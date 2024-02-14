@@ -1,3 +1,11 @@
+using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using PortfolioWebsite.Client;
+using PortfolioWebsite.Client.Services;
+using PortfolioWebsite.Client.Services.Contracts;
+using Serilog;
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
 
