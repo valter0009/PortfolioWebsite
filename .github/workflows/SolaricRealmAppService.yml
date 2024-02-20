@@ -1,10 +1,10 @@
-name: Build and deploy .NET Core application to Web App solaricrealm
+name: Build and deploy .NET Core application to Web App SolaricRealmAppService
 on:
   push:
     branches:
     - master
 env:
-  AZURE_WEBAPP_NAME: solaricrealm
+  AZURE_WEBAPP_NAME: SolaricRealmAppService
   AZURE_WEBAPP_PACKAGE_PATH: PortfolioWebsite.Api\publish
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
@@ -44,5 +44,5 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        publish-profile: ${{ secrets.solaricrealm_4E6D }}
+        publish-profile: ${{ secrets.SolaricRealmAppService_2174 }}
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
