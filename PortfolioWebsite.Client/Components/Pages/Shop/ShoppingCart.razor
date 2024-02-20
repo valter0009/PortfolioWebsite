@@ -4,7 +4,8 @@
 
 @if (ShoppingCartItems == null && ErrorMessage == null)
 {
-	<DisplaySpinner></DisplaySpinner>
+	<h2 class="text-danger">When you first open the shop or cart, it will attempt to wake up the database. Please wait until an error message appears, and then reload the page. (Note: This only applies in test mode.)</h2>
+	<DisplaySpinner/>
 }
 else if (ErrorMessage != null)
 {
