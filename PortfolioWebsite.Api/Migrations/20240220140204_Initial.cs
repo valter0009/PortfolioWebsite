@@ -118,16 +118,15 @@ namespace PortfolioWebsite.Api.Migrations
                     { 5, 2, "A cool Los Mucus sticker to stick on anything you want", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/stickers/tr:w-800/stickerredversion2.jpg?updatedAt=1707594734695", "Los Mucus - Sticker", 3m, 1000 },
                     { 6, 2, "A cool Los Mucus sticker to stick on anything you want", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/stickers/tr:w-800/sticker.jpg?updatedAt=1707594734694", "Los Mucus - Sticker", 3m, 1000 },
                     { 7, 2, "A cool Los Mucus sticker to stick on anything you want", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/stickers/tr:w-800/Mucusskull.jpg?updatedAt=1707594734689", "Los Mucus - Sticker", 3m, 1000 },
-                    { 8, 3, "A 400x200 Print", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/Prints/tr:w-800/birds.jpg?updatedAt=1707594856304", "Birds - Print", 40m, 1000 },
-                    { 9, 3, "A 400x200 Print", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/Prints/tr:w-800/sun.jpg?updatedAt=1707594855618", "Ascension - Print", 40m, 1000 },
-                    { 10, 3, "A 400x200 Print", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/Prints/tr:w-800/explosion.jpg?updatedAt=1707594855179", "Explosion - Print", 40m, 1000 },
-                    { 11, 3, "A 300x200 Print", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/Prints/tr:w-800/holy.jpg?updatedAt=1707594853722", "Mother - Print", 40m, 1000 },
-                    { 12, 3, "A 400x200 Print", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/Prints/tr:w-800/Devotion%20Gray.jpg?updatedAt=1707594734206", "Devotion - Print", 40m, 1000 },
-                    { 13, 3, "A 400x200 Print", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/Prints/tr:w-800/No%20Tobaccoshirt2.png?updatedAt=1707594733986", "No Tobacco - Print", 40m, 1000 },
-                    { 14, 4, "A poster from a gig at Flat Cap, Helsingborg", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/posters/tr:w-800/Flatcap.jpg?updatedAt=1707594735646", "Los Mucus / Flat Cap - Poster", 20m, 1000 },
-                    { 15, 4, "A poster from a gig at Grand, Malmö", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/posters/tr:w-800/GRANDversion2.jpg?updatedAt=1707594734910", "Los Mucus / Grand - Poster", 20m, 1000 },
-                    { 16, 4, "A poster from a gig at Flat Cap, Helsingborg", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/posters/tr:w-800/Flatcap2.jpg?updatedAt=1707594734836", "Los Mucus / Flat Cap - Poster", 20m, 1000 },
-                    { 17, 4, "A poster from a gig at Hemgården, Lund", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/posters/tr:w-800/Posterklar.jpg?updatedAt=1707594734268", "Los Mucus / Hemgården - Poster", 20m, 1000 }
+                    { 8, 3, "A 400x200 Print", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/prints/tr:w-800/birds.jpg?updatedAt=1707594856304", "Birds - Print", 40m, 1000 },
+                    { 9, 3, "A 400x200 Print", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/prints/tr:w-800/sun.jpg?updatedAt=1707594855618", "Ascension - Print", 40m, 1000 },
+                    { 10, 3, "A 400x200 Print", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/prints/tr:w-800/explosion.jpg?updatedAt=1707594855179", "Explosion - Print", 40m, 1000 },
+                    { 11, 3, "A 300x200 Print", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/prints/tr:w-800/holy.jpg?updatedAt=1707594853722", "Mother - Print", 40m, 1000 },
+                    { 12, 3, "A 400x200 Print", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/prints/tr:w-800/Devotion%20Gray.jpg?updatedAt=1707594734206", "Devotion - Print", 40m, 1000 },
+                    { 13, 4, "A poster from a gig at Flat Cap, Helsingborg", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/posters/tr:w-800/Flatcap.jpg?updatedAt=1707594735646", "Los Mucus / Flat Cap - Poster", 20m, 1000 },
+                    { 14, 4, "A poster from a gig at Grand, Malmö", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/posters/tr:w-800/GRANDversion2.jpg?updatedAt=1707594734910", "Los Mucus / Grand - Poster", 20m, 1000 },
+                    { 15, 4, "A poster from a gig at Flat Cap, Helsingborg", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/posters/tr:w-800/Flatcap2.jpg?updatedAt=1707594734836", "Los Mucus / Flat Cap - Poster", 20m, 1000 },
+                    { 16, 4, "A poster from a gig at Hemgården, Lund", "https://ik.imagekit.io/valter/StefanPortfolio/Shop/posters/tr:w-800/Posterklar.jpg?updatedAt=1707594734268", "Los Mucus / Hemgården - Poster", 20m, 1000 }
                 });
 
             migrationBuilder.CreateIndex(

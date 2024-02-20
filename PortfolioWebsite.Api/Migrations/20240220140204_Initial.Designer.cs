@@ -11,8 +11,8 @@ using PortfolioWebsite.Api.Data;
 namespace PortfolioWebsite.Api.Migrations
 {
     [DbContext(typeof(PortfolioWebsiteDbContext))]
-    [Migration("20240210202434_FixedImageUrls")]
-    partial class FixedImageUrls
+    [Migration("20240220140204_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -224,16 +224,6 @@ namespace PortfolioWebsite.Api.Migrations
                         new
                         {
                             Id = 13,
-                            CategoryId = 3,
-                            Description = "A 400x200 Print",
-                            ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/prints/tr:w-800/No%20Tobaccoshirt2.png?updatedAt=1707594733986",
-                            Name = "No Tobacco - Print",
-                            Price = 40m,
-                            Qty = 1000
-                        },
-                        new
-                        {
-                            Id = 14,
                             CategoryId = 4,
                             Description = "A poster from a gig at Flat Cap, Helsingborg",
                             ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/posters/tr:w-800/Flatcap.jpg?updatedAt=1707594735646",
@@ -243,7 +233,7 @@ namespace PortfolioWebsite.Api.Migrations
                         },
                         new
                         {
-                            Id = 15,
+                            Id = 14,
                             CategoryId = 4,
                             Description = "A poster from a gig at Grand, Malmö",
                             ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/posters/tr:w-800/GRANDversion2.jpg?updatedAt=1707594734910",
@@ -253,7 +243,7 @@ namespace PortfolioWebsite.Api.Migrations
                         },
                         new
                         {
-                            Id = 16,
+                            Id = 15,
                             CategoryId = 4,
                             Description = "A poster from a gig at Flat Cap, Helsingborg",
                             ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/posters/tr:w-800/Flatcap2.jpg?updatedAt=1707594734836",
@@ -263,7 +253,7 @@ namespace PortfolioWebsite.Api.Migrations
                         },
                         new
                         {
-                            Id = 17,
+                            Id = 16,
                             CategoryId = 4,
                             Description = "A poster from a gig at Hemgården, Lund",
                             ImageURL = "https://ik.imagekit.io/valter/StefanPortfolio/Shop/posters/tr:w-800/Posterklar.jpg?updatedAt=1707594734268",
