@@ -4,46 +4,46 @@ using PortfolioWebsite.Models.DTOs;
 
 namespace PortfolioWebsite.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+	[Route("api/[controller]")]
+	[ApiController]
 
-    public class PaymentController : ControllerBase
-    {
-        private readonly IPaymentRepository _paymentRepository;
-
-
-
-        public PaymentController(IPaymentRepository paymentRepository)
-        {
-            this._paymentRepository = paymentRepository;
+	public class PaymentController : ControllerBase
+	{
+		private readonly IPaymentRepository _paymentRepository;
 
 
-        }
 
-        //Create Checkout Session in Stripe
-        [HttpPost("checkout")]
+		public PaymentController(IPaymentRepository paymentRepository)
+		{
+			this._paymentRepository = paymentRepository;
 
-        public ActionResult CreateCheckoutSessions(List<CartItemDto> cartItems)
-        {
-            var url = _paymentRepository.CreateCheckoutSession(cartItems);
-            return Ok(url);
-        }
 
-        [HttpPost]
+		}
 
-        public async Task<IActionResult> FulfillOrder()
-        {
-            try
-            {
-                await _paymentRepository.FulfillOrder(Request);
+		//Create Checkout Session in Stripe
+		[HttpPost("checkout")]
 
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                return BadRequest();
-            }
-        }
-    }
+		public ActionResult CreateCheckoutSessions(List<CartItemDto> cartItems)
+		{
+			var url = _paymentRepository.CreateCheckoutSession(cartItems);
+			return Ok(url);
+		}
+
+		[HttpPost("webhook")]
+
+		public async Task<IActionResult> FulfillOrder()
+		{
+			try
+			{
+				await _paymentRepository.FulfillOrder(Request);
+
+				return Ok();
+			}
+			catch (Exception e)
+			{
+				return BadRequest();
+			}
+		}
+	}
 }
 
